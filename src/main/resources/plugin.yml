@@ -1,5 +1,8 @@
 name: StrikeDeathMessages
-version: '${project.version}'
+version: 0.1.1
 depend: [StrikePractice]
 main: me.bermine.sdm.StrikeDeathMessages
 author: Bermine
+commands:
+  sdm:
+    aliases: [strikedeathmessage, strikedeathmessages]

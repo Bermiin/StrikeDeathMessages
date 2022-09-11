@@ -6,7 +6,7 @@
 
     <groupId>me.bermine</groupId>
     <artifactId>StrikeDeathMessages</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
     <packaging>jar</packaging>
 
     <name>StrikeDeathMessages</name>

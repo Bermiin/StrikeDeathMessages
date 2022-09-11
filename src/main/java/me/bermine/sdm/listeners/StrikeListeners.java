@@ -5,6 +5,7 @@ import ga.strikepractice.events.DuelStartEvent;
 import me.bermine.sdm.StrikeDeathMessages;
 import me.bermine.sdm.util.Color;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,6 +21,10 @@ public class StrikeListeners implements Listener {
         if (!config.getBoolean("death_message.enabled")) return;
         String winner = e.getWinner().getName();
         String looser = e.getLoser().getName();
+        if (config.getBoolean("death.sound.enabled")) {
+            e.getLoser().playSound(e.getLoser().getLocation(), Sound.valueOf(config.getString("death.sound.sound")), (float) config.getInt("death.sound.volume"), (float) config.getInt("death.sound.pitch"));
+            e.getWinner().playSound(e.getLoser().getLocation(), Sound.valueOf(config.getString("death.sound.sound")), (float) config.getInt("death.sound.volume"), (float) config.getInt("death.sound.pitch"));
+        }
         e.getFight().getPlayersInFight().forEach(p ->
             p.sendMessage(Color.translate(config.getString("death_message.format")
                     .replace("<looser>", looser)

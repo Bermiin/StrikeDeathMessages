@@ -1,10 +1,15 @@
-death_message:
+death:
   enabled: true
-  format: "&a<winner> &7killed &c<looser>"
+  message: "&a<winner> &7killed &c<looser>"
+  sound:
+    enabled: true
+    sound: "AMBIENCE_THUNDER"
+    volume: 1.0
+    pitch: 1.0
 
-start_message:
+start:
   enabled: true
-  format:
+  message:
     - " "
     - "&4&l[WARNING] &c&lDrag clicking or butterfly clicking might result in a ban!"
     - " "

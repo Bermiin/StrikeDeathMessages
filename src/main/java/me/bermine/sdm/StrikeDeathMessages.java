@@ -1,6 +1,7 @@
 package me.bermine.sdm;
 
 import lombok.Getter;
+import me.bermine.sdm.listeners.StrikeListeners;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -22,6 +23,7 @@ public final class StrikeDeathMessages extends JavaPlugin {
             this.getConfig().options().copyDefaults(true);
             this.saveDefaultConfig();
         }
+        this.getServer().getPluginManager().registerEvents(new StrikeListeners(), this);
         getLogger().info("Plugin has been enabled");
     }
 

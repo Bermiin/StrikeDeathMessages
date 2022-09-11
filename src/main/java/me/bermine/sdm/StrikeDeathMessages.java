@@ -11,7 +11,7 @@ public final class StrikeDeathMessages extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        if (this.getDescription().getAuthors().contains("Bermine") || this.getDescription().getName().equalsIgnoreCase("StrikeDeathMessage")) {
+        if (!this.getDescription().getAuthors().contains("Bermine") || !this.getDescription().getName().equalsIgnoreCase("StrikeDeathMessage")) {
             getLogger().warning("y r u changing the plugin.yml ( ͡° ͜ʖ ͡°)");
             this.getPluginLoader().disablePlugin(this);
             return;

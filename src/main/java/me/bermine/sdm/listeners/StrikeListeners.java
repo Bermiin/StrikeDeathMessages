@@ -2,6 +2,7 @@ package me.bermine.sdm.listeners;
 
 import ga.strikepractice.events.DuelEndEvent;
 import ga.strikepractice.events.DuelStartEvent;
+import ga.strikepractice.fights.Fight;
 import me.bermine.sdm.StrikeDeathMessages;
 import me.bermine.sdm.util.Color;
 import org.bukkit.Bukkit;
@@ -16,21 +17,24 @@ import org.bukkit.event.Listener;
 public class StrikeListeners implements Listener {
 
     @EventHandler
-    public void onDuelEnd(DuelEndEvent e) {
+    public void onDuelEnd(DuelEndEvent event) {
         FileConfiguration config = StrikeDeathMessages.getInstance().getConfig();
         if (!config.getBoolean("death.enabled")) return;
-        String winner = e.getWinner().getName();
-        String looser = e.getLoser().getName();
+        String winner = event.getWinner().getName();
+        String loser = event.getLoser().getName();
         if (config.getBoolean("death.sound.enabled")) {
-            e.getLoser().playSound(e.getLoser().getLocation(), Sound.valueOf(config.getString("death.sound.sound")), (float) config.getInt("death.sound.volume"), (float) config.getInt("death.sound.pitch"));
-            e.getWinner().playSound(e.getLoser().getLocation(), Sound.valueOf(config.getString("death.sound.sound")), (float) config.getInt("death.sound.volume"), (float) config.getInt("death.sound.pitch"));
+            event.getLoser().playSound(event.getLoser().getLocation(), Sound.valueOf(config.getString("death.sound.sound")), (float) config.getInt("death.sound.volume"), (float) config.getInt("death.sound.pitch"));
+            event.getWinner().playSound(event.getLoser().getLocation(), Sound.valueOf(config.getString("death.sound.sound")), (float) config.getInt("death.sound.volume"), (float) config.getInt("death.sound.pitch"));
         }
-        e.getFight().getPlayersInFight().forEach(p ->
-            p.sendMessage(Color.translate(config.getString("death.message")
-                    .replace("<looser>", looser)
-                    .replace("<winner>", winner)
-            ))
-        );
+        Fight fight = event.getFight();
+        if(fight == null) {
+            return;
+        }
+        String message = Color.translate(config.getString("death.message")
+                        .replace("<looser>", loser)
+                        .replace("<winner>", winner));
+        fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
+        fight.getSpectators().forEach(player -> player.sendMessage(message));
     }
 
     @EventHandler

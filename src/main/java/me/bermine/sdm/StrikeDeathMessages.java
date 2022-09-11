@@ -6,6 +6,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 
+/**
+ * @author Bermine
+ */
 public final class StrikeDeathMessages extends JavaPlugin {
 
     @Getter private static StrikeDeathMessages instance;

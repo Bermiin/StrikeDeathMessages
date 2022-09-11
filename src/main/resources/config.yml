@@ -1,0 +1,7 @@
+death_messages:
+  enabled: true
+  format: "&a<winner> &7killed &c<looser>"
+
+disconnect_message:
+  enabled: true
+  format: "&c<player> &7disconnected."

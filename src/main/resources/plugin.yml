@@ -1,0 +1,5 @@
+name: StrikeDeathMessages
+version: '${project.version}'
+depend: [StrikePractice]
+main: me.bermine.sdm.StrikeDeathMessages
+author: Bermine

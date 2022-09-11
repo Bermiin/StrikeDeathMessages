@@ -1,13 +1,29 @@
 package me.bermine.sdm.util;
 
 import lombok.experimental.UtilityClass;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 /**
  * @author Bermine
  */
 @UtilityClass
 public class Color {
+
+    private static final boolean SUPPORTS_HEXCOLORS;
+    private static final Pattern HEX_PATTERN = Pattern.compile("#[a-fA-F\\d]{6}");
+
+    static {
+        String packageName = Bukkit.getServer().getClass().getPackage().getName();
+        String serverVersion = packageName.substring(packageName.lastIndexOf('.') + 1);
+
+        SUPPORTS_HEXCOLORS = Stream.of("1_7", "1_8", "1_9", "1_10", "1_11", "1_12", "1_13", "1_14", "1_15")
+                .noneMatch(serverVersion::contains);
+    }
 
     public static final String BLACK = ChatColor.BLACK.toString(); // 0
     public static final String D_BLUE = ChatColor.DARK_BLUE.toString(); // 1
@@ -32,7 +48,21 @@ public class Color {
     public static final String O = ChatColor.MAGIC.toString(); // k
     public static final String R = ChatColor.RESET.toString(); // r
 
-    public String translate(String s) {
-        return ChatColor.translateAlternateColorCodes('&', s);
+    public String translate(String message) {
+        if(SUPPORTS_HEXCOLORS) {
+            Matcher matcher = HEX_PATTERN.matcher(message);
+            while (matcher.find()) {
+                String hexCode = message.substring(matcher.start(), matcher.end());
+                String replaceSharp = hexCode.replace('#', 'x');
+                char[] ch = replaceSharp.toCharArray();
+                StringBuilder builder = new StringBuilder();
+                for (char c : ch) {
+                    builder.append("&").append(c);
+                }
+                message = message.replace(hexCode, builder.toString());
+                matcher = HEX_PATTERN.matcher(message);
+            }
+        }
+        return ChatColor.translateAlternateColorCodes('&', message);
     }
 }

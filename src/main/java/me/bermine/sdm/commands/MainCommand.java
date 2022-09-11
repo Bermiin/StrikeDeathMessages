@@ -13,6 +13,10 @@ public class MainCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!sender.hasPermission("sdm.reload")) {
+            sender.sendMessage(Color.translate(StrikeDeathMessages.getInstance().getConfig().getString("no_perms")));
+            return true;
+        }
         if (args.length == 0 || !args[0].equalsIgnoreCase("reload")) {
             sender.sendMessage(Color.RED + "Usage: /sdm reload");
             return true;

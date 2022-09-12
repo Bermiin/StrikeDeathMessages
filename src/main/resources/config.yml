@@ -2,6 +2,12 @@ no_perms: "&cNo permission."
 death:
   enabled: true
   message: "&a<winner> &7killed &c<looser>"
+  # if death was not caused by another player (e.g. player died in void)
+  message_no_player: "&c<player> &7died."
+  # When player wins a bedwars or bridges game
+  # placeholders: <winner>, <looser>
+  message_win: "&a<winner> &7won the game."
+  # sound that will be played at the end of every game
   sound:
     enabled: true
     sound: "AMBIENCE_THUNDER"

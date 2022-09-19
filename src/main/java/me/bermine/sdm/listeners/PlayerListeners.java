@@ -22,7 +22,7 @@ import java.util.List;
 public class PlayerListeners implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onPlayerDeath(EntityDamageEvent e) {
+    public void onEntityDamage(EntityDamageEvent e) {
         if (!(e.getEntity() instanceof Player) || !ConfigUtils.DEATH_ENABLED) return;
         StrikePracticeAPI api = StrikePractice.getAPI();
         Player damaged = (Player) e.getEntity();
@@ -50,10 +50,10 @@ public class PlayerListeners implements Listener {
             }
             if (damaged.getLastDamageCause().getCause() == DamageCause.FALL) {
                 playersInFight.forEach(player ->
-                    player.sendMessage(ConfigUtils.DEATH_MSG_NO_PL.replace("<player>", damaged.getName()))
+                    player.sendMessage(ConfigUtils.DEATH_MSG_NO_PL.replace("<player>", damaged.getName()).replace("<opponent>", opponent.getName()))
                 );
                 fight.getSpectators().forEach(spectator ->
-                    spectator.sendMessage(ConfigUtils.DEATH_MSG_NO_PL.replace("<player>", damaged.getName()))
+                    spectator.sendMessage(ConfigUtils.DEATH_MSG_NO_PL.replace("<player>", damaged.getName()).replace("<opponent>", opponent.getName()))
                 );
             }
         }
@@ -75,7 +75,12 @@ public class PlayerListeners implements Listener {
         StrikePracticeAPI api = StrikePractice.getAPI();
         Fight fight = api.getFight(dead);
         if (fight == null) return;
-        String message = ConfigUtils.DEATH_MSG_NO_PL.replace("<player>", dead.getName());
+
+        List<Player> playersInFight = fight.getPlayersInFight();
+        if (playersInFight.stream().noneMatch(p -> p.getName().equals(dead.getName()))) return;
+        Player opponent = playersInFight.stream().filter(p -> !p.getName().equals(dead.getName())).findAny().get();
+
+        String message = ConfigUtils.DEATH_MSG_NO_PL.replace("<player>", dead.getName()).replace("<opponent>", opponent.getName());
         fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
         fight.getSpectators().forEach(spectator -> spectator.sendMessage(message));
         // Prevent sending multiple messages when both -1.0 and -2.0 Y-cords are present

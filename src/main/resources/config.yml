@@ -3,6 +3,7 @@ death:
   enabled: true
   message: "&a<winner> &7killed &c<looser>"
   # if death was not caused by another player (e.g. player died in void)
+  # placeholders: <player> (the player that died), <opponent>
   message_no_player: "&c<player> &7died."
   # When player wins a bedwars or bridges game
   # placeholders: <winner>, <looser>

@@ -2,6 +2,7 @@ package me.bermine.sdm.commands;
 
 import me.bermine.sdm.StrikeDeathMessages;
 import me.bermine.sdm.util.Color;
+import me.bermine.sdm.util.ConfigUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,7 +15,7 @@ public class MainCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("sdm.reload")) {
-            sender.sendMessage(Color.translate(StrikeDeathMessages.getInstance().getConfig().getString("no_perms")));
+            sender.sendMessage(ConfigUtils.NO_PERMS);
             return true;
         }
         if (args.length == 0 || !args[0].equalsIgnoreCase("reload")) {

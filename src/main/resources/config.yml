@@ -17,6 +17,10 @@ death:
     sound: "AMBIENCE_THUNDER"
     volume: 1.0
     pitch: 1.0
+  # fadeIn = How long should it take for the title to fade in (in ticks)
+  # stay = How long should the title stay visible (in ticks)
+  # fadeOut = How long should it take for the title to fade away (in ticks)
+  # 20 ticks = 1 IRL second
   # Placeholders: <winner>, <looser>
   win_title:
     enabled: true
@@ -39,10 +43,6 @@ start:
     - " "
     - "&4&l[WARNING] &c&lDrag clicking or butterfly clicking might result in a ban!"
     - " "
-  # fadeIn = How long should it take for the title to fade in (in ticks)
-  # stay = How long should the title stay visible (in ticks)
-  # fadeOut = How long should it take for the title to fade away (in ticks)
-  # 20 ticks = 1 IRL second
   title:
     enabled: false
     title: "&c&lFight"

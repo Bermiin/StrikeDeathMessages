@@ -5,6 +5,7 @@ import ga.strikepractice.events.DuelStartEvent;
 import ga.strikepractice.fights.Fight;
 import me.bermine.sdm.StrikeDeathMessages;
 import me.bermine.sdm.util.ConfigUtils;
+import me.bermine.sdm.util.ReflectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
@@ -30,18 +31,44 @@ public class StrikeListeners implements Listener {
             return;
         }
 
+        if (ConfigUtils.WINNER_TITLE_ENABLED) {
+            String title = ConfigUtils.WINNER_TITLE
+                .replace("<loser>", event.getLoser().getName())
+                .replace("<winner>", event.getWinner().getName());
+            String subTitle = ConfigUtils.WINNER_SUBTITLE
+                .replace("<loser>", event.getLoser().getName())
+                .replace("<winner>", event.getWinner().getName());
+            int fadeIn = ConfigUtils.WINNER_TITLE_FI;
+            int stay = ConfigUtils.WINNER_TITLE_S;
+            int fadeOut = ConfigUtils.WINNER_TITLE_FO;
+            ReflectionUtils.sendTitle(event.getWinner(), title, subTitle, fadeIn, stay, fadeOut);
+        }
+
+        if (ConfigUtils.LOSER_TITLE_ENABLED) {
+            String title = ConfigUtils.LOSER_TITLE
+                .replace("<loser>", event.getLoser().getName())
+                .replace("<winner>", event.getWinner().getName());
+            String subTitle = ConfigUtils.LOSER_SUBTITLE
+                .replace("<loser>", event.getLoser().getName())
+                .replace("<winner>", event.getWinner().getName());
+            int fadeIn = ConfigUtils.LOSER_TITLE_FI;
+            int stay = ConfigUtils.LOSER_TITLE_S;
+            int fadeOut = ConfigUtils.LOSER_TITLE_FO;
+            ReflectionUtils.sendTitle(event.getLoser(), title, subTitle, fadeIn, stay, fadeOut);
+        }
+
         if (fight.getKit().isBridges() || fight.getKit().isBedwars()) {
             String message = ConfigUtils.DEATH_WIN
-                    .replace("<looser>", loser)
-                    .replace("<winner>", winner);
+                .replace("<looser>", loser)
+                .replace("<winner>", winner);
             fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
             fight.getSpectators().forEach(player -> player.sendMessage(message));
             return;
         }
 
         String message = ConfigUtils.DEATH_MSG
-                        .replace("<looser>", loser)
-                        .replace("<winner>", winner);
+            .replace("<looser>", loser)
+            .replace("<winner>", winner);
         fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
         fight.getSpectators().forEach(player -> player.sendMessage(message));
     }
@@ -49,6 +76,14 @@ public class StrikeListeners implements Listener {
     @EventHandler
     public void onDuelStart(DuelStartEvent e) {
         if (!ConfigUtils.START_ENABLED) return;
+        if (ConfigUtils.START_TITLE_ENABLED) {
+            String title = ConfigUtils.START_TITLE;
+            String subTitle = ConfigUtils.START_SUBTITLE;
+            int fadeIn = ConfigUtils.START_TITLE_FI;
+            int stay = ConfigUtils.START_TITLE_S;
+            int fadeOut = ConfigUtils.START_TITLE_FO;
+            e.getFight().getPlayersInFight().forEach(p -> ReflectionUtils.sendTitle(p, title, subTitle, fadeIn, stay, fadeOut));
+        }
         Bukkit.getScheduler().runTaskLater(StrikeDeathMessages.getInstance(), () ->
             ConfigUtils.START_MSG.forEach(s -> {
                 e.getPlayer1().sendMessage(s);

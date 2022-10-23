@@ -9,11 +9,29 @@ death:
   # placeholders: <winner>, <looser>
   message_win: "&a<winner> &7won the game."
   # sound that will be played at the end of every game
+  # WARNING: The default sound is for 1.8 Only!
+  # All 1.8 sounds can be found here: https://helpch.at/docs/1.8/index.html?org/bukkit/Sound.html
+  # All 1.9+ sounds can be found here: https://helpch.at/docs/1.9/index.html?org/bukkit/Sound.html
   sound:
     enabled: true
     sound: "AMBIENCE_THUNDER"
     volume: 1.0
     pitch: 1.0
+  # Placeholders: <winner>, <looser>
+  win_title:
+    enabled: true
+    title: "&a&lVICTORY"
+    subtitle: "&a<winner> &fhas won the fight!"
+    fadeIn: 10
+    stay: 20
+    fadeOut: 10
+  lose_title:
+    enabled: true
+    title: "&c&lDEFEAT"
+    subtitle: "&a<winner> &fhas won the fight!"
+    fadeIn: 10
+    stay: 20
+    fadeOut: 10
 
 start:
   enabled: true
@@ -21,3 +39,14 @@ start:
     - " "
     - "&4&l[WARNING] &c&lDrag clicking or butterfly clicking might result in a ban!"
     - " "
+  # fadeIn = How long should it take for the title to fade in (in ticks)
+  # stay = How long should the title stay visible (in ticks)
+  # fadeOut = How long should it take for the title to fade away (in ticks)
+  # 20 ticks = 1 IRL second
+  title:
+    enabled: false
+    title: "&c&lFight"
+    subtitle: "Match has started"
+    fadeIn: 20,
+    stay: 20,
+    fadeOut: 20

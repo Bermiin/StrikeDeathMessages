@@ -43,12 +43,12 @@ public class ConfigUtils {
     public final int WINNER_TITLE_S = getConfig().getInt("death.win_title.stay");
     public final int WINNER_TITLE_FO = getConfig().getInt("death.win_title.fadeOut");
 
-    public final boolean LOSER_TITLE_ENABLED = getConfig().getBoolean("death.loose_title.enabled");
-    public final String LOSER_TITLE = Color.translate(getConfig().getString("death.loose_title.title"));
-    public final String LOSER_SUBTITLE = Color.translate(getConfig().getString("death.loose_title.subtitle"));
-    public final int LOSER_TITLE_FI = getConfig().getInt("death.loose_title.fadeIn");
-    public final int LOSER_TITLE_S = getConfig().getInt("death.loose_title.stay");
-    public final int LOSER_TITLE_FO = getConfig().getInt("death.loose_title.fadeOut");
+    public final boolean LOSER_TITLE_ENABLED = getConfig().getBoolean("death.lose_title.enabled");
+    public final String LOSER_TITLE = Color.translate(getConfig().getString("death.lose_title.title"));
+    public final String LOSER_SUBTITLE = Color.translate(getConfig().getString("death.lose_title.subtitle"));
+    public final int LOSER_TITLE_FI = getConfig().getInt("death.lose_title.fadeIn");
+    public final int LOSER_TITLE_S = getConfig().getInt("death.lose_title.stay");
+    public final int LOSER_TITLE_FO = getConfig().getInt("death.lose_title.fadeOut");
 
     public FileConfiguration getConfig() {
         return plugin.getConfig();

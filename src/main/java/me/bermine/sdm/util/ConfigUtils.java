@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
  */
 @UtilityClass
 public class ConfigUtils {
+    // TODO: Refactor this goofy ass code
     private final StrikeDeathMessages plugin = StrikeDeathMessages.getInstance();
     public final String NO_PERMS = CC.translate(getConfig().getString("no_perms"));
     public final boolean DEATH_ENABLED = getConfig().getBoolean("death.enabled");

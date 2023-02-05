@@ -9,14 +9,14 @@ import java.lang.reflect.Constructor;
 import java.util.logging.Level;
 
 @UtilityClass
-public class ReflectionUtils {
+public class Reflections {
 
     private final StrikeDeathMessages plugin = StrikeDeathMessages.getInstance();
     private static final String NMS_PACKAGE;
     private static final String CRAFT_BUKKIT_PACKAGE;
 
     static {
-        String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+        String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
         NMS_PACKAGE = "net.minecraft.server." + version + ".";
         CRAFT_BUKKIT_PACKAGE = "org.bukkit.craftbukkit." + version + ".";
     }

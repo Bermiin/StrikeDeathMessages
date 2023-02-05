@@ -4,17 +4,20 @@ import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
  * @author Bermine
  */
 @UtilityClass
-public class Color {
+public class CC {
 
     private static final boolean SUPPORTS_HEXCOLORS;
+
     private static final Pattern HEX_PATTERN = Pattern.compile("#[a-fA-F\\d]{6}");
 
     static {
@@ -64,5 +67,9 @@ public class Color {
             }
         }
         return ChatColor.translateAlternateColorCodes('&', message);
+    }
+
+    public List<String> translate(List<String> messages) {
+        return messages.stream().map(CC::translate).collect(Collectors.toList());
     }
 }

@@ -18,7 +18,8 @@ public final class StrikeDeathMessages extends JavaPlugin {
     @Override
     public void onEnable() {
         if (!this.getDescription().getAuthors().contains("Bermine") || !this.getDescription().getName().equalsIgnoreCase("StrikeDeathMessages")) {
-            getLogger().warning("y r u changing the plugin.yml ( ͡° ͜ʖ ͡°)");
+            getLogger().warning("You edited the plugin.yml");
+            getLogger().warning("Haha get caught in 4k");
             this.getPluginLoader().disablePlugin(this);
             return;
         }
@@ -26,7 +27,7 @@ public final class StrikeDeathMessages extends JavaPlugin {
         createConfig();
         this.getServer().getPluginManager().registerEvents(new StrikeListeners(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerListeners(), this);
-        this.getCommand("sdm").setExecutor(new MainCommand());
+        this.getCommand("sdm reload").setExecutor(new MainCommand());
         getLogger().info("Plugin has been enabled");
     }
 

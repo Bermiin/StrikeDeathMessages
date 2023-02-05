@@ -1,4 +1,8 @@
 no_perms: "&cNo permission."
+########################################
+###  TITLES ARE CURRENTLY (NOT) WIP  ###
+###  THEY DO NOT CURRENTLY WORK      ###
+########################################
 death:
   enabled: true
   message: "&a<winner> &7killed &c<looser>"

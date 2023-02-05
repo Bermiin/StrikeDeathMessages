@@ -4,10 +4,8 @@ import ga.strikepractice.StrikePractice;
 import ga.strikepractice.api.StrikePracticeAPI;
 import ga.strikepractice.fights.Fight;
 import me.bermine.sdm.StrikeDeathMessages;
-import me.bermine.sdm.util.CC;
 import me.bermine.sdm.util.ConfigUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -25,8 +23,7 @@ public class PlayerListeners implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onEntityDamage(EntityDamageEvent e) {
-        FileConfiguration config = ConfigUtils.config();
-        if (!(e.getEntity() instanceof Player) || !config.getBoolean("death.enabled")) return;
+        if (!(e.getEntity() instanceof Player) || !ConfigUtils.DEATH_ENABLED) return;
         StrikePracticeAPI api = StrikePractice.getAPI();
         Player damaged = (Player) e.getEntity();
         if (round(damaged.getHealth()) > 4.1) return;
@@ -41,26 +38,22 @@ public class PlayerListeners implements Listener {
         if (fight.getKit().isBedwars() || fight.getKit().isBridges() && !fight.hasEnded()) {
             if (damaged.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK) {
                 playersInFight.forEach(player ->
-                    player.sendMessage(CC.translate(config.getString("death.message"))
+                    player.sendMessage(ConfigUtils.DEATH_MSG
                         .replace("<looser>", damaged.getName())
                         .replace("<winner>", opponent.getName()))
                 );
                 fight.getSpectators().forEach(spectator ->
-                    spectator.sendMessage(CC.translate(config.getString("death.message"))
+                    spectator.sendMessage(ConfigUtils.DEATH_MSG
                         .replace("<looser>", damaged.getName())
                         .replace("<winner>", opponent.getName()))
-                    );
+                );
             }
             if (damaged.getLastDamageCause().getCause() == DamageCause.FALL) {
                 playersInFight.forEach(player ->
-                    player.sendMessage(CC.translate(config.getString("death.message_no_player"))
-                        .replace("<player>", damaged.getName())
-                        .replace("<opponent>", opponent.getName()))
+                    player.sendMessage(ConfigUtils.DEATH_MSG_NO_PL.replace("<player>", damaged.getName()).replace("<opponent>", opponent.getName()))
                 );
                 fight.getSpectators().forEach(spectator ->
-                    spectator.sendMessage(CC.translate(config.getString("death.message_no_player"))
-                        .replace("<player>", damaged.getName())
-                        .replace("<opponent>", opponent.getName()))
+                    spectator.sendMessage(ConfigUtils.DEATH_MSG_NO_PL.replace("<player>", damaged.getName()).replace("<opponent>", opponent.getName()))
                 );
             }
         }
@@ -70,7 +63,7 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
-        if (!ConfigUtils.config().getBoolean("death.enabled")) return;
+        if (!ConfigUtils.DEATH_ENABLED) return;
         if (e.getFrom().getBlockY() == -1.0 || e.getFrom().getBlockY() == -2.0) {
             execute(e.getPlayer());
         }
@@ -87,7 +80,7 @@ public class PlayerListeners implements Listener {
         if (playersInFight.stream().noneMatch(p -> p.getName().equals(dead.getName()))) return;
         Player opponent = playersInFight.stream().filter(p -> !p.getName().equals(dead.getName())).findAny().get();
 
-        String message = CC.translate(ConfigUtils.config().getString("death.message_no_player"))
+        String message = ConfigUtils.DEATH_MSG_NO_PL.replace("<player>", dead.getName()).replace("<opponent>", opponent.getName())
             .replace("<player>", dead.getName())
             .replace("<opponent>", opponent.getName());
         fight.getPlayersInFight().forEach(player -> player.sendMessage(message));

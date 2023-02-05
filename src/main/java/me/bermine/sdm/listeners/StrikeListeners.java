@@ -31,7 +31,7 @@ public class StrikeListeners implements Listener {
             return;
         }
 
-        if (ConfigUtils.WINNER_TITLE_ENABLED) {
+        /*if (ConfigUtils.WINNER_TITLE_ENABLED) {
             String title = ConfigUtils.WINNER_TITLE
                     .replace("<loser>", event.getLoser().getName())
                     .replace("<winner>", event.getWinner().getName());
@@ -42,9 +42,9 @@ public class StrikeListeners implements Listener {
             int stay = ConfigUtils.WINNER_TITLE_S;
             int fadeOut = ConfigUtils.WINNER_TITLE_FO;
             Reflections.sendTitle(event.getWinner(), title, subTitle, fadeIn, stay, fadeOut);
-        }
+        }*/
 
-        if (ConfigUtils.LOSER_TITLE_ENABLED) {
+        /*if (ConfigUtils.LOSER_TITLE_ENABLED) {
             String title = ConfigUtils.LOSER_TITLE
                     .replace("<loser>", event.getLoser().getName())
                     .replace("<winner>", event.getWinner().getName());
@@ -55,7 +55,7 @@ public class StrikeListeners implements Listener {
             int stay = ConfigUtils.LOSER_TITLE_S;
             int fadeOut = ConfigUtils.LOSER_TITLE_FO;
             Reflections.sendTitle(event.getLoser(), title, subTitle, fadeIn, stay, fadeOut);
-        }
+        }*/
 
         if (fight.getKit().isBridges() || fight.getKit().isBedwars()) {
             String message = ConfigUtils.DEATH_WIN
@@ -76,14 +76,14 @@ public class StrikeListeners implements Listener {
     @EventHandler
     public void onDuelStart(DuelStartEvent e) {
         if (!ConfigUtils.START_ENABLED) return;
-        if (ConfigUtils.START_TITLE_ENABLED) {
+        /*if (ConfigUtils.START_TITLE_ENABLED) {
             String title = ConfigUtils.START_TITLE;
             String subTitle = ConfigUtils.START_SUBTITLE;
             int fadeIn = ConfigUtils.START_TITLE_FI;
             int stay = ConfigUtils.START_TITLE_S;
             int fadeOut = ConfigUtils.START_TITLE_FO;
             e.getFight().getPlayersInFight().forEach(p -> Reflections.sendTitle(p, title, subTitle, fadeIn, stay, fadeOut));
-        }
+        }*/
         Bukkit.getScheduler().runTaskLater(StrikeDeathMessages.getInstance(), () ->
             ConfigUtils.START_MSG.forEach(s -> {
                 e.getPlayer1().sendMessage(s);

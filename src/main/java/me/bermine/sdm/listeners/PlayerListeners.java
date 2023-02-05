@@ -3,6 +3,7 @@ package me.bermine.sdm.listeners;
 import ga.strikepractice.StrikePractice;
 import ga.strikepractice.api.StrikePracticeAPI;
 import ga.strikepractice.fights.Fight;
+import ga.strikepractice.fights.duel.BestOfFight;
 import me.bermine.sdm.StrikeDeathMessages;
 import me.bermine.sdm.util.ConfigUtils;
 import org.bukkit.Bukkit;
@@ -29,7 +30,7 @@ public class PlayerListeners implements Listener {
         if (round(damaged.getHealth()) > 4.1) return;
         if (e.getDamage() <= 1.5 && round(damaged.getHealth()) >= 1.0) return;
         Fight fight = api.getFight(damaged);
-        if (fight == null) return;
+        if (!(fight instanceof BestOfFight)) return;
 
         List<Player> playersInFight = fight.getPlayersInFight();
         if (playersInFight.stream().noneMatch(p -> p.getName().equals(damaged.getName()))) return;

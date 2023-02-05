@@ -4,5 +4,5 @@ depend: [StrikePractice]
 main: me.bermine.sdm.StrikeDeathMessages
 author: Bermine
 commands:
-  sdm reload:
-    aliases: [strikedeathmessage reload, strikedeathmessages reload]
+  sdm:
+    aliases: [strikedeathmessage, strikedeathmessages]

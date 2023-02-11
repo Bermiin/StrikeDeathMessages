@@ -1,11 +1,11 @@
 package me.bermine.sdm.listeners;
 
+import ga.strikepractice.events.BotDuelEndEvent;
 import ga.strikepractice.events.DuelEndEvent;
 import ga.strikepractice.events.DuelStartEvent;
 import ga.strikepractice.fights.Fight;
 import me.bermine.sdm.StrikeDeathMessages;
 import me.bermine.sdm.util.ConfigUtils;
-import me.bermine.sdm.util.Reflections;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
@@ -71,6 +71,16 @@ public class StrikeListeners implements Listener {
                 .replace("<winner>", winner);
         fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
         fight.getSpectators().forEach(player -> player.sendMessage(message));
+    }
+
+    @EventHandler
+    public void handleBotDuels(BotDuelEndEvent e) {
+        if (!ConfigUtils.DEATH_ENABLED) return;
+        String message = ConfigUtils.DEATH_MSG
+                .replace("<winner>", e.getWinner())
+                .replace("<looser>", e.getLoser());
+        e.getFight().getPlayersInFight().forEach(player -> player.sendMessage(message));
+        e.getFight().getSpectators().forEach(player -> player.sendMessage(message));
     }
 
     @EventHandler

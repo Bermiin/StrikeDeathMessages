@@ -5,7 +5,7 @@ import ga.strikepractice.events.DuelEndEvent;
 import ga.strikepractice.events.DuelStartEvent;
 import ga.strikepractice.fights.Fight;
 import me.bermine.sdm.StrikeDeathMessages;
-import me.bermine.sdm.util.ConfigUtils;
+import me.bermine.sdm.util.CC;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
@@ -16,15 +16,20 @@ import org.bukkit.event.Listener;
  */
 public class StrikeListeners implements Listener {
 
+    private final StrikeDeathMessages plugin = StrikeDeathMessages.getInstance();
+
     @EventHandler
     public void onDuelEnd(DuelEndEvent event) {
-        if (!ConfigUtils.DEATH_ENABLED) return;
+        if (!plugin.getConfig().getBoolean("death.enabled")) return;
         if (event.getWinner() == null || event.getLoser() == null) return;
         String winner = event.getWinner().getName();
         String loser = event.getLoser().getName();
-        if (ConfigUtils.DEATH_SOUND_ENABLED) {
-            event.getLoser().playSound(event.getLoser().getLocation(), Sound.valueOf(ConfigUtils.DEATH_SOUND), ConfigUtils.DEATH_SOUND_VOLUME, ConfigUtils.DEATH_SOUND_PITCH);
-            event.getWinner().playSound(event.getLoser().getLocation(), Sound.valueOf(ConfigUtils.DEATH_SOUND), ConfigUtils.DEATH_SOUND_VOLUME, ConfigUtils.DEATH_SOUND_PITCH);
+        if (plugin.getConfig().getBoolean("death.sound.enabled")) {
+            String sound = plugin.getConfig().getString("death.sound.sound");
+            float v = plugin.getConfig().getInt("death.sound.volume");
+            float p = plugin.getConfig().getInt("death.sound.pitch");
+            event.getLoser().playSound(event.getLoser().getLocation(), Sound.valueOf(sound), v, p);
+            event.getWinner().playSound(event.getLoser().getLocation(), Sound.valueOf(sound), v, p);
         }
         Fight fight = event.getFight();
         if(fight == null) {
@@ -58,7 +63,7 @@ public class StrikeListeners implements Listener {
         }*/
 
         if (fight.getKit().isBridges() || fight.getKit().isBedwars()) {
-            String message = ConfigUtils.DEATH_WIN
+            String message = CC.translate(plugin.getConfig().getString("death.message_win"))
                     .replace("<looser>", loser)
                     .replace("<winner>", winner);
             fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
@@ -66,7 +71,7 @@ public class StrikeListeners implements Listener {
             return;
         }
 
-        String message = ConfigUtils.DEATH_MSG
+        String message = CC.translate(plugin.getConfig().getString("death.message"))
                 .replace("<looser>", loser)
                 .replace("<winner>", winner);
         fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
@@ -75,8 +80,8 @@ public class StrikeListeners implements Listener {
 
     @EventHandler
     public void handleBotDuels(BotDuelEndEvent e) {
-        if (!ConfigUtils.DEATH_ENABLED) return;
-        String message = ConfigUtils.DEATH_MSG
+        if (!plugin.getConfig().getBoolean("death.enabled")) return;
+        String message = CC.translate(StrikeDeathMessages.getInstance().getConfig().getString("death.message"))
                 .replace("<winner>", e.getWinner())
                 .replace("<looser>", e.getLoser());
         e.getFight().getPlayersInFight().forEach(player -> player.sendMessage(message));
@@ -85,7 +90,7 @@ public class StrikeListeners implements Listener {
 
     @EventHandler
     public void onDuelStart(DuelStartEvent e) {
-        if (!ConfigUtils.START_ENABLED) return;
+        if (!plugin.getConfig().getBoolean("start.enabled")) return;
         /*if (ConfigUtils.START_TITLE_ENABLED) {
             String title = ConfigUtils.START_TITLE;
             String subTitle = ConfigUtils.START_SUBTITLE;
@@ -95,7 +100,7 @@ public class StrikeListeners implements Listener {
             e.getFight().getPlayersInFight().forEach(p -> Reflections.sendTitle(p, title, subTitle, fadeIn, stay, fadeOut));
         }*/
         Bukkit.getScheduler().runTaskLater(StrikeDeathMessages.getInstance(), () ->
-            ConfigUtils.START_MSG.forEach(s -> {
+            CC.translate(plugin.getConfig().getStringList("start.message")).forEach(s -> {
                 e.getPlayer1().sendMessage(s);
                 e.getPlayer2().sendMessage(s);
             }),101L);

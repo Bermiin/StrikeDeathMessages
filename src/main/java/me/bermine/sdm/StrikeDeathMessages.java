@@ -24,9 +24,9 @@ public final class StrikeDeathMessages extends JavaPlugin {
         }
         instance = this;
         createConfig();
-        this.getServer().getPluginManager().registerEvents(new StrikeListeners(), this);
-        this.getServer().getPluginManager().registerEvents(new PlayerListeners(), this);
-        this.getCommand("sdm").setExecutor(new MainCommand());
+        this.getServer().getPluginManager().registerEvents(new StrikeListeners(this), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerListeners(this), this);
+        this.getCommand("sdm").setExecutor(new MainCommand(this));
         getLogger().info("Plugin has been enabled");
     }
 

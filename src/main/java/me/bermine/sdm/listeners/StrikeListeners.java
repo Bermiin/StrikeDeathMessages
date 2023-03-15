@@ -4,6 +4,7 @@ import ga.strikepractice.events.BotDuelEndEvent;
 import ga.strikepractice.events.DuelEndEvent;
 import ga.strikepractice.events.DuelStartEvent;
 import ga.strikepractice.fights.Fight;
+import lombok.RequiredArgsConstructor;
 import me.bermine.sdm.StrikeDeathMessages;
 import me.bermine.sdm.util.CC;
 import org.bukkit.Bukkit;
@@ -14,9 +15,10 @@ import org.bukkit.event.Listener;
 /**
  * @author Bermine
  */
+@RequiredArgsConstructor
 public class StrikeListeners implements Listener {
 
-    private final StrikeDeathMessages plugin = StrikeDeathMessages.getInstance();
+    private final StrikeDeathMessages plugin;
 
     @EventHandler
     public void onDuelEnd(DuelEndEvent event) {
@@ -81,7 +83,7 @@ public class StrikeListeners implements Listener {
     @EventHandler
     public void handleBotDuels(BotDuelEndEvent e) {
         if (!plugin.getConfig().getBoolean("death.enabled")) return;
-        String message = CC.translate(StrikeDeathMessages.getInstance().getConfig().getString("death.message"))
+        String message = CC.translate(plugin.getConfig().getString("death.message"))
                 .replace("<winner>", e.getWinner())
                 .replace("<looser>", e.getLoser());
         e.getFight().getPlayersInFight().forEach(player -> player.sendMessage(message));
@@ -99,7 +101,7 @@ public class StrikeListeners implements Listener {
             int fadeOut = ConfigUtils.START_TITLE_FO;
             e.getFight().getPlayersInFight().forEach(p -> Reflections.sendTitle(p, title, subTitle, fadeIn, stay, fadeOut));
         }*/
-        Bukkit.getScheduler().runTaskLater(StrikeDeathMessages.getInstance(), () ->
+        Bukkit.getScheduler().runTaskLater(plugin, () ->
             CC.translate(plugin.getConfig().getStringList("start.message")).forEach(s -> {
                 e.getPlayer1().sendMessage(s);
                 e.getPlayer2().sendMessage(s);

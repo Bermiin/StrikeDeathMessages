@@ -5,6 +5,7 @@ import ga.strikepractice.api.StrikePracticeAPI;
 import ga.strikepractice.fights.BotFight;
 import ga.strikepractice.fights.Fight;
 import ga.strikepractice.fights.duel.BestOfFight;
+import lombok.RequiredArgsConstructor;
 import me.bermine.sdm.StrikeDeathMessages;
 import me.bermine.sdm.util.CC;
 import org.bukkit.Bukkit;
@@ -21,9 +22,10 @@ import java.util.List;
 /**
  * @author Bermine
  */
+@RequiredArgsConstructor
 public class PlayerListeners implements Listener {
 
-    private final StrikeDeathMessages plugin = StrikeDeathMessages.getInstance();
+    private final StrikeDeathMessages plugin;
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onEntityDamage(EntityDamageEvent e) {
@@ -90,7 +92,7 @@ public class PlayerListeners implements Listener {
         fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
         fight.getSpectators().forEach(spectator -> spectator.sendMessage(message));
         // Prevent sending multiple messages when both -1.0 and -2.0 Y-cords are present
-        Bukkit.getScheduler().runTaskLater(StrikeDeathMessages.getInstance(), () -> teleporting = false, 5L);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> teleporting = false, 5L);
     }
 
     double round(double value) {

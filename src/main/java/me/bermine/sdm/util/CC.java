@@ -52,18 +52,17 @@ public class CC {
     public static final String R = ChatColor.RESET.toString(); // r
 
     public String translate(String message) {
-        if(SUPPORTS_HEXCOLORS) {
-            Matcher matcher = HEX_PATTERN.matcher(message);
+        if (SUPPORTS_HEXCOLORS) {
+            final Matcher matcher = HEX_PATTERN.matcher(message);
             while (matcher.find()) {
-                String hexCode = message.substring(matcher.start(), matcher.end());
-                String replaceSharp = hexCode.replace('#', 'x');
-                char[] ch = replaceSharp.toCharArray();
-                StringBuilder builder = new StringBuilder();
-                for (char c : ch) {
+                final String hexCode = message.substring(matcher.start(), matcher.end());
+                final String replaceSharp = hexCode.replace('#', 'x');
+                final char[] ch = replaceSharp.toCharArray();
+                final StringBuilder builder = new StringBuilder();
+                for (final char c : ch) {
                     builder.append("&").append(c);
                 }
                 message = message.replace(hexCode, builder.toString());
-                matcher = HEX_PATTERN.matcher(message);
             }
         }
         return ChatColor.translateAlternateColorCodes('&', message);

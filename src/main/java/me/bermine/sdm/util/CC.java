@@ -53,7 +53,7 @@ public class CC {
 
     public String translate(String message) {
         if (SUPPORTS_HEXCOLORS) {
-            final Matcher matcher = HEX_PATTERN.matcher(message);
+            Matcher matcher = HEX_PATTERN.matcher(message);
             while (matcher.find()) {
                 final String hexCode = message.substring(matcher.start(), matcher.end());
                 final String replaceSharp = hexCode.replace('#', 'x');
@@ -63,6 +63,7 @@ public class CC {
                     builder.append("&").append(c);
                 }
                 message = message.replace(hexCode, builder.toString());
+                matcher = HEX_PATTERN.matcher(message);
             }
         }
         return ChatColor.translateAlternateColorCodes('&', message);

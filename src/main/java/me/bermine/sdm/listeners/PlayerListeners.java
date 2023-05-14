@@ -18,6 +18,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Bermine
@@ -38,8 +39,9 @@ public class PlayerListeners implements Listener {
         if (!(fight instanceof BestOfFight) || fight instanceof BotFight) return;
 
         List<Player> playersInFight = fight.getPlayersInFight();
-        if (playersInFight.stream().noneMatch(p -> p.getName().equals(damaged.getName()))) return;
-        Player opponent = playersInFight.stream().filter(p -> !p.getName().equals(damaged.getName())).findAny().get();
+        Optional<Player> optionalPlayer = playersInFight.stream().filter(p -> !p.getName().equals(damaged.getName())).findFirst();
+        if (!optionalPlayer.isPresent()) return;
+        Player opponent = optionalPlayer.get();
 
         if (fight.getKit().isBedwars() || fight.getKit().isBridges() && !fight.hasEnded()) {
             if (damaged.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK) {
@@ -83,8 +85,9 @@ public class PlayerListeners implements Listener {
         if (fight == null) return;
 
         List<Player> playersInFight = fight.getPlayersInFight();
-        if (playersInFight.stream().noneMatch(p -> p.getName().equals(dead.getName()))) return;
-        Player opponent = playersInFight.stream().filter(p -> !p.getName().equals(dead.getName())).findAny().get();
+        Optional<Player> optionalPlayer = playersInFight.stream().filter(p -> !p.getName().equals(dead.getName())).findAny();
+        if (!optionalPlayer.isPresent()) return;
+        Player opponent = optionalPlayer.get();
 
         String message = CC.translate(plugin.getConfig().getString("death.message_no_player")).replace("<player>", dead.getName()).replace("<opponent>", opponent.getName())
             .replace("<player>", dead.getName())

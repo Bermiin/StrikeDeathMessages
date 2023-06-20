@@ -6,7 +6,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -58,9 +57,6 @@ private static FileConfiguration config;
     }
     public int asInt() {
         return config.getInt(path, (int) def);
-    }
-    public double asDouble() {
-        return config.getDouble(path, (double) def);
     }
     public List<String> asList() {
         return CC.translate(config.getStringList(path));

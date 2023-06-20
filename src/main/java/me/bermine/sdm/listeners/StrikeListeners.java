@@ -1,7 +1,6 @@
 package me.bermine.sdm.listeners;
 
 import com.connorlinfoot.titleapi.TitleAPI;
-import ga.strikepractice.events.BotDuelEndEvent;
 import ga.strikepractice.events.DuelEndEvent;
 import ga.strikepractice.events.DuelStartEvent;
 import ga.strikepractice.fights.Fight;
@@ -79,16 +78,6 @@ public class StrikeListeners implements Listener {
                 .replace("<winner>", winner);
         fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
         fight.getSpectators().forEach(player -> player.sendMessage(message));
-    }
-
-    @EventHandler
-    public void handleBotDuels(BotDuelEndEvent e) {
-        if (!Config.DEATH_ENABLED.asBoolean()) return;
-        String message = Config.DEATH_MESSAGE.toString()
-                .replace("<winner>", e.getWinner())
-                .replace("<looser>", e.getLoser());
-        e.getFight().getPlayersInFight().forEach(player -> player.sendMessage(message));
-        e.getFight().getSpectators().forEach(player -> player.sendMessage(message));
     }
 
     @EventHandler

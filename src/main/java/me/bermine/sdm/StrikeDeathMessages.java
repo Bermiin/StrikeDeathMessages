@@ -3,6 +3,7 @@ package me.bermine.sdm;
 import com.connorlinfoot.titleapi.TitleAPI;
 import lombok.Getter;
 import me.bermine.sdm.commands.MainCommand;
+import me.bermine.sdm.listeners.BotDuelListeners;
 import me.bermine.sdm.listeners.PlayerListeners;
 import me.bermine.sdm.listeners.StrikeListeners;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,6 +32,10 @@ public final class StrikeDeathMessages extends JavaPlugin {
         new TitleAPI();
         this.getServer().getPluginManager().registerEvents(new StrikeListeners(this), this);
         this.getServer().getPluginManager().registerEvents(new PlayerListeners(this), this);
+        try {
+            Class.forName("net.citizensnpcs.api.npc.NPC");
+            this.getServer().getPluginManager().registerEvents(new BotDuelListeners(), this);
+        } catch (ClassNotFoundException ignored) {}
         this.getCommand("sdm").setExecutor(new MainCommand(this));
         getLogger().info("Plugin has been enabled");
     }

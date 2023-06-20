@@ -5,6 +5,7 @@ import ga.strikepractice.api.StrikePracticeAPI;
 import ga.strikepractice.fights.BotFight;
 import ga.strikepractice.fights.Fight;
 import ga.strikepractice.fights.duel.BestOfFight;
+import ga.strikepractice.fights.other.FFAFight;
 import lombok.RequiredArgsConstructor;
 import me.bermine.sdm.StrikeDeathMessages;
 import me.bermine.sdm.util.CC;
@@ -15,6 +16,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.List;
@@ -65,6 +67,42 @@ public class PlayerListeners implements Listener {
                 );
             }
         }
+    }
+
+    @EventHandler
+    public void handleFFA(PlayerDeathEvent event) {
+        if (!plugin.getConfig().getBoolean("death.enabled")) return;
+        StrikePracticeAPI api = StrikePractice.getAPI();
+        Player dead = event.getEntity();
+        Player killer = dead.getKiller();
+        Fight fight = api.getFight(dead);
+        if (!(fight instanceof FFAFight)) return;
+
+        if (killer == null) {
+            fight.getPlayersInFight().forEach(player ->
+                player.sendMessage(CC.translate(plugin.getConfig().getString("death.message_no_player")
+                    .replace("<player>", dead.getName())
+                ))
+            );
+            fight.getSpectators().forEach(spectator ->
+                spectator.sendMessage(CC.translate(plugin.getConfig().getString("death.message_no_player")
+                        .replace("<player>", dead.getName())
+                ))
+            );
+            return;
+        }
+        fight.getPlayersInFight().forEach(player ->
+            player.sendMessage(CC.translate(plugin.getConfig().getString("death.message")
+                    .replace("<winner>", killer.getName())
+                    .replace("<looser>", dead.getName())
+            ))
+        );
+        fight.getSpectators().forEach(spectator ->
+            spectator.sendMessage(CC.translate(plugin.getConfig().getString("death.message")
+                    .replace("<winner>", killer.getName())
+                    .replace("<looser>", dead.getName())
+            ))
+        );
     }
 
     boolean teleporting = false;

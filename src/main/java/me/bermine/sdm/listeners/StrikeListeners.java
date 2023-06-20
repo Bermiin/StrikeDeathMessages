@@ -1,12 +1,13 @@
 package me.bermine.sdm.listeners;
 
+import com.connorlinfoot.titleapi.TitleAPI;
 import ga.strikepractice.events.BotDuelEndEvent;
 import ga.strikepractice.events.DuelEndEvent;
 import ga.strikepractice.events.DuelStartEvent;
 import ga.strikepractice.fights.Fight;
 import lombok.RequiredArgsConstructor;
+import me.bermine.sdm.Config;
 import me.bermine.sdm.StrikeDeathMessages;
-import me.bermine.sdm.util.CC;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
@@ -22,14 +23,14 @@ public class StrikeListeners implements Listener {
 
     @EventHandler
     public void onDuelEnd(DuelEndEvent event) {
-        if (!plugin.getConfig().getBoolean("death.enabled")) return;
+        if (!Config.DEATH_ENABLED.asBoolean()) return;
         if (event.getWinner() == null || event.getLoser() == null) return;
         String winner = event.getWinner().getName();
         String loser = event.getLoser().getName();
-        if (plugin.getConfig().getBoolean("death.sound.enabled")) {
-            String sound = plugin.getConfig().getString("death.sound.sound");
-            float v = plugin.getConfig().getInt("death.sound.volume");
-            float p = plugin.getConfig().getInt("death.sound.pitch");
+        if (Config.SOUND_ENABLED.asBoolean()) {
+            String sound = Config.SOUND_VALUE.toString();
+            float v = Config.SOUND_VOLUME.asInt();
+            float p = Config.SOUND_PITCH.asInt();
             event.getLoser().playSound(event.getLoser().getLocation(), Sound.valueOf(sound), v, p);
             event.getWinner().playSound(event.getLoser().getLocation(), Sound.valueOf(sound), v, p);
         }
@@ -38,34 +39,34 @@ public class StrikeListeners implements Listener {
             return;
         }
 
-        /*if (ConfigUtils.WINNER_TITLE_ENABLED) {
-            String title = ConfigUtils.WINNER_TITLE
+        if (Config.WIN_TITLE_ENABLED.asBoolean()) {
+            String title = Config.WIN_TITLE_TITLE.toString()
                     .replace("<loser>", event.getLoser().getName())
                     .replace("<winner>", event.getWinner().getName());
-            String subTitle = ConfigUtils.WINNER_SUBTITLE
+            String subTitle = Config.WIN_TITLE_SUBTITLE.toString()
                     .replace("<loser>", event.getLoser().getName())
                     .replace("<winner>", event.getWinner().getName());
-            int fadeIn = ConfigUtils.WINNER_TITLE_FI;
-            int stay = ConfigUtils.WINNER_TITLE_S;
-            int fadeOut = ConfigUtils.WINNER_TITLE_FO;
-            Reflections.sendTitle(event.getWinner(), title, subTitle, fadeIn, stay, fadeOut);
-        }*/
+            int fadeIn = Config.WIN_TITLE_FADEIN.asInt();
+            int stay = Config.WIN_TITLE_STAY.asInt();
+            int fadeOut = Config.WIN_TITLE_FADEOUT.asInt();
+            TitleAPI.sendTitle(event.getWinner(), title, subTitle, fadeIn, stay, fadeOut);
+        }
 
-        /*if (ConfigUtils.LOSER_TITLE_ENABLED) {
-            String title = ConfigUtils.LOSER_TITLE
+        if (Config.LOSE_TITLE_ENABLED.asBoolean()) {
+            String title = Config.LOSE_TITLE_TITLE.toString()
                     .replace("<loser>", event.getLoser().getName())
                     .replace("<winner>", event.getWinner().getName());
-            String subTitle = ConfigUtils.LOSER_SUBTITLE
+            String subTitle = Config.LOSE_TITLE_SUBTITLE.toString()
                     .replace("<loser>", event.getLoser().getName())
                     .replace("<winner>", event.getWinner().getName());
-            int fadeIn = ConfigUtils.LOSER_TITLE_FI;
-            int stay = ConfigUtils.LOSER_TITLE_S;
-            int fadeOut = ConfigUtils.LOSER_TITLE_FO;
-            Reflections.sendTitle(event.getLoser(), title, subTitle, fadeIn, stay, fadeOut);
-        }*/
+            int fadeIn = Config.LOSE_TITLE_FADEIN.asInt();
+            int stay = Config.LOSE_TITLE_STAY.asInt();
+            int fadeOut = Config.LOSE_TITLE_FADEOUT.asInt();
+            TitleAPI.sendTitle(event.getLoser(), title, subTitle, fadeIn, stay, fadeOut);
+        }
 
         if (fight.getKit().isBridges() || fight.getKit().isBedwars()) {
-            String message = CC.translate(plugin.getConfig().getString("death.message_win"))
+            String message = Config.DEATH_MESSAGE_WIN.toString()
                     .replace("<looser>", loser)
                     .replace("<winner>", winner);
             fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
@@ -73,7 +74,7 @@ public class StrikeListeners implements Listener {
             return;
         }
 
-        String message = CC.translate(plugin.getConfig().getString("death.message"))
+        String message = Config.DEATH_MESSAGE.toString()
                 .replace("<looser>", loser)
                 .replace("<winner>", winner);
         fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
@@ -82,8 +83,8 @@ public class StrikeListeners implements Listener {
 
     @EventHandler
     public void handleBotDuels(BotDuelEndEvent e) {
-        if (!plugin.getConfig().getBoolean("death.enabled")) return;
-        String message = CC.translate(plugin.getConfig().getString("death.message"))
+        if (!Config.DEATH_ENABLED.asBoolean()) return;
+        String message = Config.DEATH_MESSAGE.toString()
                 .replace("<winner>", e.getWinner())
                 .replace("<looser>", e.getLoser());
         e.getFight().getPlayersInFight().forEach(player -> player.sendMessage(message));
@@ -92,17 +93,17 @@ public class StrikeListeners implements Listener {
 
     @EventHandler
     public void onDuelStart(DuelStartEvent e) {
-        if (!plugin.getConfig().getBoolean("start.enabled")) return;
-        /*if (ConfigUtils.START_TITLE_ENABLED) {
-            String title = ConfigUtils.START_TITLE;
-            String subTitle = ConfigUtils.START_SUBTITLE;
-            int fadeIn = ConfigUtils.START_TITLE_FI;
-            int stay = ConfigUtils.START_TITLE_S;
-            int fadeOut = ConfigUtils.START_TITLE_FO;
-            e.getFight().getPlayersInFight().forEach(p -> Reflections.sendTitle(p, title, subTitle, fadeIn, stay, fadeOut));
-        }*/
+        if (!Config.START_ENABLED.asBoolean()) return;
+        if (Config.START_TITLE_ENABLED.asBoolean()) {
+            String title = Config.START_TITLE_TITLE.toString();
+            String subTitle = Config.START_TITLE_SUBTITLE.toString();
+            int fadeIn = Config.START_TITLE_FADEIN.asInt();
+            int stay = Config.START_TITLE_STAY.asInt();
+            int fadeOut = Config.START_TITLE_FADEOUT.asInt();
+            e.getFight().getPlayersInFight().forEach(p -> TitleAPI.sendTitle(p, title, subTitle, fadeIn, stay, fadeOut));
+        }
         Bukkit.getScheduler().runTaskLater(plugin, () ->
-            CC.translate(plugin.getConfig().getStringList("start.message")).forEach(s -> {
+            Config.START_MESSAGE.asList().forEach(s -> {
                 e.getPlayer1().sendMessage(s);
                 e.getPlayer2().sendMessage(s);
             }),101L);

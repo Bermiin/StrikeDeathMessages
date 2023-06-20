@@ -7,8 +7,8 @@ import ga.strikepractice.fights.Fight;
 import ga.strikepractice.fights.duel.BestOfFight;
 import ga.strikepractice.fights.other.FFAFight;
 import lombok.RequiredArgsConstructor;
+import me.bermine.sdm.Config;
 import me.bermine.sdm.StrikeDeathMessages;
-import me.bermine.sdm.util.CC;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,9 +32,16 @@ public class PlayerListeners implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onEntityDamage(EntityDamageEvent e) {
-        if (!(e.getEntity() instanceof Player) || !plugin.getConfig().getBoolean("death.enabled")) return;
+        if (!(e.getEntity() instanceof Player) || !Config.DEATH_ENABLED.asBoolean()) return;
         StrikePracticeAPI api = StrikePractice.getAPI();
         Player damaged = (Player) e.getEntity();
+        /*
+         * Yes I know that this is a really shitty way to do this.
+         * Unfortunately, the player never actually dies in bridges.
+         *
+         * And just in case someone asks, yes I did actually test it.
+         * That's why I resorted to doing it this way.
+         */
         if (round(damaged.getHealth()) > 4.1) return;
         if (e.getDamage() <= 1.5 && round(damaged.getHealth()) >= 1.0) return;
         Fight fight = api.getFight(damaged);
@@ -48,22 +55,26 @@ public class PlayerListeners implements Listener {
         if (fight.getKit().isBedwars() || fight.getKit().isBridges() && !fight.hasEnded()) {
             if (damaged.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK) {
                 playersInFight.forEach(player ->
-                    player.sendMessage(CC.translate(plugin.getConfig().getString("death.message"))
+                    player.sendMessage(Config.DEATH_MESSAGE.toString()
                         .replace("<looser>", damaged.getName())
                         .replace("<winner>", opponent.getName()))
                 );
                 fight.getSpectators().forEach(spectator ->
-                    spectator.sendMessage(CC.translate(plugin.getConfig().getString("death.message"))
+                    spectator.sendMessage(Config.DEATH_MESSAGE.toString()
                         .replace("<looser>", damaged.getName())
                         .replace("<winner>", opponent.getName()))
                 );
             }
             if (damaged.getLastDamageCause().getCause() == DamageCause.FALL) {
                 playersInFight.forEach(player ->
-                    player.sendMessage(CC.translate(plugin.getConfig().getString("death.message_no_player")).replace("<player>", damaged.getName()).replace("<opponent>", opponent.getName()))
+                    player.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.toString()
+                        .replace("<player>", damaged.getName())
+                        .replace("<opponent>", opponent.getName()))
                 );
                 fight.getSpectators().forEach(spectator ->
-                    spectator.sendMessage(CC.translate(plugin.getConfig().getString("death.message_no_player")).replace("<player>", damaged.getName()).replace("<opponent>", opponent.getName()))
+                    spectator.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.toString()
+                        .replace("<player>", damaged.getName())
+                        .replace("<opponent>", opponent.getName()))
                 );
             }
         }
@@ -80,28 +91,28 @@ public class PlayerListeners implements Listener {
 
         if (killer == null) {
             fight.getPlayersInFight().forEach(player ->
-                player.sendMessage(CC.translate(plugin.getConfig().getString("death.message_no_player")
+                player.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.toString()
                     .replace("<player>", dead.getName())
-                ))
+                )
             );
             fight.getSpectators().forEach(spectator ->
-                spectator.sendMessage(CC.translate(plugin.getConfig().getString("death.message_no_player")
+                spectator.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.toString()
                         .replace("<player>", dead.getName())
-                ))
+                )
             );
             return;
         }
         fight.getPlayersInFight().forEach(player ->
-            player.sendMessage(CC.translate(plugin.getConfig().getString("death.message")
+            player.sendMessage(Config.DEATH_MESSAGE.toString()
                     .replace("<winner>", killer.getName())
                     .replace("<looser>", dead.getName())
-            ))
+            )
         );
         fight.getSpectators().forEach(spectator ->
-            spectator.sendMessage(CC.translate(plugin.getConfig().getString("death.message")
+            spectator.sendMessage(Config.DEATH_MESSAGE.toString()
                     .replace("<winner>", killer.getName())
                     .replace("<looser>", dead.getName())
-            ))
+            )
         );
     }
 
@@ -109,7 +120,7 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
-        if (!plugin.getConfig().getBoolean("death.enabled")) return;
+        if (!Config.DEATH_ENABLED.asBoolean()) return;
         if (e.getFrom().getBlockY() == -1.0 || e.getFrom().getBlockY() == -2.0) {
             execute(e.getPlayer());
         }
@@ -127,7 +138,7 @@ public class PlayerListeners implements Listener {
         if (!optionalPlayer.isPresent()) return;
         Player opponent = optionalPlayer.get();
 
-        String message = CC.translate(plugin.getConfig().getString("death.message_no_player")).replace("<player>", dead.getName()).replace("<opponent>", opponent.getName())
+        String message = Config.DEATH_MESSAGE_NO_PLAYER.toString()
             .replace("<player>", dead.getName())
             .replace("<opponent>", opponent.getName());
         fight.getPlayersInFight().forEach(player -> player.sendMessage(message));

@@ -1,5 +1,6 @@
 package me.bermine.sdm;
 
+import com.connorlinfoot.titleapi.TitleAPI;
 import lombok.Getter;
 import me.bermine.sdm.commands.MainCommand;
 import me.bermine.sdm.listeners.PlayerListeners;
@@ -17,13 +18,17 @@ public final class StrikeDeathMessages extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        if (!this.getDescription().getAuthors().contains("Bermine") || !this.getDescription().getName().equalsIgnoreCase("StrikeDeathMessages")) {
-            getLogger().warning("y r u changing the plugin.yml ( ͡° ͜ʖ ͡°)");
+        if (!this.getDescription().getAuthors().contains("Bermine") || !this.getDescription().getName().equals("StrikeDeathMessages")) {
+            getLogger().warning("You edited the plugin.yml, haha get caught in 4k");
+            getLogger().warning("Please check your plugin.yml and try again");
+            getLogger().warning("Disabling plugin...");
             this.getPluginLoader().disablePlugin(this);
             return;
         }
         instance = this;
         createConfig();
+        Config.init(this);
+        new TitleAPI();
         this.getServer().getPluginManager().registerEvents(new StrikeListeners(this), this);
         this.getServer().getPluginManager().registerEvents(new PlayerListeners(this), this);
         this.getCommand("sdm").setExecutor(new MainCommand(this));

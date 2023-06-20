@@ -6,7 +6,7 @@
 
     <groupId>me.bermine</groupId>
     <artifactId>StrikeDeathMessages</artifactId>
-    <version>0.1.4</version>
+    <version>0.1.5</version>
     <packaging>jar</packaging>
 
     <name>StrikeDeathMessages</name>
@@ -83,10 +83,11 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/StrikePractice-3.6.2.jar</systemPath>
         </dependency>
+        <!-- My fork of ConnorLinfoot's TitleAPI - https://github.com/bermiin/TitleAPI -->
         <dependency>
             <groupId>com.connorlinfoot</groupId>
             <artifactId>TitleAPI</artifactId>
-            <version>1.8.1</version>
+            <version>1.8.2</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

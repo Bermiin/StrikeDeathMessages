@@ -1,5 +1,5 @@
 name: StrikeDeathMessages
-version: 0.1.5
+version: 0.1.5-HOTFIX
 depend: [StrikePractice]
 main: me.bermine.sdm.StrikeDeathMessages
 author: Bermine

@@ -28,8 +28,8 @@ public class StrikeListeners implements Listener {
         String loser = event.getLoser().getName();
         if (Config.SOUND_ENABLED.asBoolean()) {
             String sound = Config.SOUND_VALUE.toString();
-            float v = Config.SOUND_VOLUME.asInt();
-            float p = Config.SOUND_PITCH.asInt();
+            float v = (float) Config.SOUND_VOLUME.asDouble();
+            float p = (float) Config.SOUND_PITCH.asDouble();
             event.getLoser().playSound(event.getLoser().getLocation(), Sound.valueOf(sound), v, p);
             event.getWinner().playSound(event.getLoser().getLocation(), Sound.valueOf(sound), v, p);
         }

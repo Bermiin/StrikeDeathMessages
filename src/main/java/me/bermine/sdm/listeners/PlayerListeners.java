@@ -55,24 +55,24 @@ public class PlayerListeners implements Listener {
         if (fight.getKit().isBedwars() || fight.getKit().isBridges() && !fight.hasEnded()) {
             if (damaged.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK) {
                 playersInFight.forEach(player ->
-                    player.sendMessage(Config.DEATH_MESSAGE.toString()
+                    player.sendMessage(Config.DEATH_MESSAGE.asString()
                         .replace("<looser>", damaged.getName())
                         .replace("<winner>", opponent.getName()))
                 );
                 fight.getSpectators().forEach(spectator ->
-                    spectator.sendMessage(Config.DEATH_MESSAGE.toString()
+                    spectator.sendMessage(Config.DEATH_MESSAGE.asString()
                         .replace("<looser>", damaged.getName())
                         .replace("<winner>", opponent.getName()))
                 );
             }
             if (damaged.getLastDamageCause().getCause() == DamageCause.FALL) {
                 playersInFight.forEach(player ->
-                    player.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.toString()
+                    player.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
                         .replace("<player>", damaged.getName())
                         .replace("<opponent>", opponent.getName()))
                 );
                 fight.getSpectators().forEach(spectator ->
-                    spectator.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.toString()
+                    spectator.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
                         .replace("<player>", damaged.getName())
                         .replace("<opponent>", opponent.getName()))
                 );
@@ -91,25 +91,25 @@ public class PlayerListeners implements Listener {
 
         if (killer == null) {
             fight.getPlayersInFight().forEach(player ->
-                player.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.toString()
+                player.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
                     .replace("<player>", dead.getName())
                 )
             );
             fight.getSpectators().forEach(spectator ->
-                spectator.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.toString()
+                spectator.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
                         .replace("<player>", dead.getName())
                 )
             );
             return;
         }
         fight.getPlayersInFight().forEach(player ->
-            player.sendMessage(Config.DEATH_MESSAGE.toString()
+            player.sendMessage(Config.DEATH_MESSAGE.asString()
                     .replace("<winner>", killer.getName())
                     .replace("<looser>", dead.getName())
             )
         );
         fight.getSpectators().forEach(spectator ->
-            spectator.sendMessage(Config.DEATH_MESSAGE.toString()
+            spectator.sendMessage(Config.DEATH_MESSAGE.asString()
                     .replace("<winner>", killer.getName())
                     .replace("<looser>", dead.getName())
             )
@@ -138,7 +138,7 @@ public class PlayerListeners implements Listener {
         if (!optionalPlayer.isPresent()) return;
         Player opponent = optionalPlayer.get();
 
-        String message = Config.DEATH_MESSAGE_NO_PLAYER.toString()
+        String message = Config.DEATH_MESSAGE_NO_PLAYER.asString()
             .replace("<player>", dead.getName())
             .replace("<opponent>", opponent.getName());
         fight.getPlayersInFight().forEach(player -> player.sendMessage(message));

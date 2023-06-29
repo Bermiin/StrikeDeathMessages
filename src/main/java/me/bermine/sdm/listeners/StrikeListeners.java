@@ -27,7 +27,7 @@ public class StrikeListeners implements Listener {
         String winner = event.getWinner().getName();
         String loser = event.getLoser().getName();
         if (Config.SOUND_ENABLED.asBoolean()) {
-            String sound = Config.SOUND_VALUE.toString();
+            String sound = Config.SOUND_VALUE.asString();
             float v = (float) Config.SOUND_VOLUME.asDouble();
             float p = (float) Config.SOUND_PITCH.asDouble();
             event.getLoser().playSound(event.getLoser().getLocation(), Sound.valueOf(sound), v, p);
@@ -39,10 +39,10 @@ public class StrikeListeners implements Listener {
         }
 
         if (Config.WIN_TITLE_ENABLED.asBoolean()) {
-            String title = Config.WIN_TITLE_TITLE.toString()
+            String title = Config.WIN_TITLE_TITLE.asString()
                     .replace("<loser>", event.getLoser().getName())
                     .replace("<winner>", event.getWinner().getName());
-            String subTitle = Config.WIN_TITLE_SUBTITLE.toString()
+            String subTitle = Config.WIN_TITLE_SUBTITLE.asString()
                     .replace("<loser>", event.getLoser().getName())
                     .replace("<winner>", event.getWinner().getName());
             int fadeIn = Config.WIN_TITLE_FADEIN.asInt();
@@ -52,10 +52,10 @@ public class StrikeListeners implements Listener {
         }
 
         if (Config.LOSE_TITLE_ENABLED.asBoolean()) {
-            String title = Config.LOSE_TITLE_TITLE.toString()
+            String title = Config.LOSE_TITLE_TITLE.asString()
                     .replace("<loser>", event.getLoser().getName())
                     .replace("<winner>", event.getWinner().getName());
-            String subTitle = Config.LOSE_TITLE_SUBTITLE.toString()
+            String subTitle = Config.LOSE_TITLE_SUBTITLE.asString()
                     .replace("<loser>", event.getLoser().getName())
                     .replace("<winner>", event.getWinner().getName());
             int fadeIn = Config.LOSE_TITLE_FADEIN.asInt();
@@ -65,7 +65,7 @@ public class StrikeListeners implements Listener {
         }
 
         if (fight.getKit().isBridges() || fight.getKit().isBedwars()) {
-            String message = Config.DEATH_MESSAGE_WIN.toString()
+            String message = Config.DEATH_MESSAGE_WIN.asString()
                     .replace("<looser>", loser)
                     .replace("<winner>", winner);
             fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
@@ -73,7 +73,7 @@ public class StrikeListeners implements Listener {
             return;
         }
 
-        String message = Config.DEATH_MESSAGE.toString()
+        String message = Config.DEATH_MESSAGE.asString()
                 .replace("<looser>", loser)
                 .replace("<winner>", winner);
         fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
@@ -84,8 +84,8 @@ public class StrikeListeners implements Listener {
     public void onDuelStart(DuelStartEvent e) {
         if (!Config.START_ENABLED.asBoolean()) return;
         if (Config.START_TITLE_ENABLED.asBoolean()) {
-            String title = Config.START_TITLE_TITLE.toString();
-            String subTitle = Config.START_TITLE_SUBTITLE.toString();
+            String title = Config.START_TITLE_TITLE.asString();
+            String subTitle = Config.START_TITLE_SUBTITLE.asString();
             int fadeIn = Config.START_TITLE_FADEIN.asInt();
             int stay = Config.START_TITLE_STAY.asInt();
             int fadeOut = Config.START_TITLE_FADEOUT.asInt();

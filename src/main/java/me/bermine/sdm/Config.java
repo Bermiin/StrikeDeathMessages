@@ -48,7 +48,7 @@ private final String path;
 private final Object def;
 private static StrikeDeathMessages plugin;
 
-    public String toString() {
+    public String asString() {
         return CC.translate(plugin.getConfig().getString(path, (String) def));
     }
     public boolean asBoolean() {

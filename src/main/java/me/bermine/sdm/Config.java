@@ -2,7 +2,6 @@ package me.bermine.sdm;
 
 import lombok.RequiredArgsConstructor;
 import me.bermine.sdm.util.CC;
-import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,25 +46,25 @@ public enum Config {
 
 private final String path;
 private final Object def;
-private static FileConfiguration config;
+private static StrikeDeathMessages plugin;
 
     public String toString() {
-        return CC.translate(config.getString(path, (String) def));
+        return CC.translate(plugin.getConfig().getString(path, (String) def));
     }
     public boolean asBoolean() {
-        return config.getBoolean(path, (boolean) def);
+        return plugin.getConfig().getBoolean(path, (boolean) def);
     }
     public int asInt() {
-        return config.getInt(path, (int) def);
+        return plugin.getConfig().getInt(path, (int) def);
     }
     public double asDouble() {
-        return config.getDouble(path, (double) def);
+        return plugin.getConfig().getDouble(path, (double) def);
     }
     public List<String> asList() {
-        return CC.translate(config.getStringList(path));
+        return CC.translate(plugin.getConfig().getStringList(path));
     }
 
     public static void init(StrikeDeathMessages plugin) {
-        config = plugin.getConfig();
+        Config.plugin = plugin;
     }
 }

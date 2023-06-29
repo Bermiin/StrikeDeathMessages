@@ -1,6 +1,7 @@
 package me.bermine.sdm.commands;
 
 import lombok.RequiredArgsConstructor;
+import me.bermine.sdm.Config;
 import me.bermine.sdm.StrikeDeathMessages;
 import me.bermine.sdm.util.CC;
 import org.bukkit.command.Command;
@@ -18,7 +19,7 @@ public class MainCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("sdm.reload")) {
-            sender.sendMessage(CC.translate(plugin.getConfig().getString("no_perms")));
+            sender.sendMessage(Config.NO_PERMISSIONS.asString());
             return true;
         }
         if (args.length == 0 || !args[0].equalsIgnoreCase("reload")) {

@@ -1,5 +1,5 @@
 # StrikeDeathMessages
-Few extra messages that might be useful for some people
+StrikePractice addon that sends messages and titles after a fight starts or ends.
 
 ### Features:
 - Message and title on fight start

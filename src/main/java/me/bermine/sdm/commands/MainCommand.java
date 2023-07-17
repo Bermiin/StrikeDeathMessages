@@ -23,11 +23,11 @@ public class MainCommand implements CommandExecutor {
             return true;
         }
         if (args.length == 0 || !args[0].equalsIgnoreCase("reload")) {
-            sender.sendMessage(CC.RED + "Usage: /sdm reload");
+            sender.sendMessage(CC.translate("&cUsage: /sdm reload"));
             return true;
         }
         plugin.reloadConfig();
-        sender.sendMessage(CC.GREEN + "Successfully reloaded config.yml");
+        sender.sendMessage(CC.translate("&aSuccessfully reloaded config.yml"));
         return false;
     }
 }

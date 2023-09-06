@@ -81,7 +81,7 @@
             <artifactId>StrikePractice</artifactId>
             <version>3.6.2</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/StrikePractice-3.6.2.jar</systemPath>
+            <systemPath>${project.basedir}/libs/strikepractice-3.8.1.jar</systemPath>
         </dependency>
         <!-- My fork of ConnorLinfoot's TitleAPI - https://github.com/bermiin/TitleAPI -->
         <dependency>

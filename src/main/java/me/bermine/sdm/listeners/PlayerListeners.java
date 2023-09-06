@@ -35,15 +35,11 @@ public class PlayerListeners implements Listener {
         if (!(e.getEntity() instanceof Player) || !Config.DEATH_ENABLED.asBoolean()) return;
         StrikePracticeAPI api = StrikePractice.getAPI();
         Player damaged = (Player) e.getEntity();
-        /*
-         * Yes I know that this is a really shitty way to do this.
-         * Unfortunately, the player never actually dies in bridges.
-         *
-         * And just in case someone asks, yes I did actually test it.
-         * That's why I resorted to doing it this way.
-         */
-        if (round(damaged.getHealth()) > 4.1) return;
-        if (e.getDamage() <= 1.5 && round(damaged.getHealth()) >= 1.0) return;
+
+        if (e.getDamage() < damaged.getHealth()) {
+            return;
+        }
+
         Fight fight = api.getFight(damaged);
         if (!(fight instanceof BestOfFight) || fight instanceof BotFight) return;
 
@@ -116,7 +112,7 @@ public class PlayerListeners implements Listener {
         );
     }
 
-    boolean teleporting = false;
+    private boolean teleporting = false;
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
@@ -126,7 +122,7 @@ public class PlayerListeners implements Listener {
         }
     }
 
-    void execute(Player dead) {
+    private void execute(Player dead) {
         if (teleporting) return;
         teleporting = true;
         StrikePracticeAPI api = StrikePractice.getAPI();
@@ -147,8 +143,4 @@ public class PlayerListeners implements Listener {
         Bukkit.getScheduler().runTaskLater(plugin, () -> teleporting = false, 5L);
     }
 
-    double round(double value) {
-        int scale = (int) Math.pow(10, 1);
-        return (double) Math.round(value * scale) / scale;
-    }
 }

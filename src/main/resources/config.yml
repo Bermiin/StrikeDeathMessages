@@ -3,11 +3,11 @@ no_perms: "&cNo permission."
 death:
   enabled: true
   message: "&a<winner> &7killed &c<looser>"
-  # if death was not caused by another player (e.g. player died in void)
-  # placeholders: <player> (the player that died), <opponent>
+  # If death was not caused by another player (e.g. player died in void)
+  # Placeholders: <player> (the player that died), <opponent>
   message_no_player: "&c<player> &7died."
   # When player wins a bedwars or bridges game
-  # placeholders: <winner>, <looser>
+  # Placeholders: <winner>, <looser>
   message_win: "&a<winner> &7won the game."
   # sound that will be played at the end of every game
   # WARNING: The default sound is for 1.8 Only!
@@ -18,36 +18,46 @@ death:
     sound: "AMBIENCE_THUNDER"
     volume: 1.0
     pitch: 1.0
-  # fadeIn = How long should it take for the title to fade in (in ticks)
-  # stay = How long should the title stay visible (in ticks)
-  # fadeOut = How long should it take for the title to fade away (in ticks)
+  # All values are in minecraft ticks!
   # 20 ticks = 1 IRL second
   # Placeholders: <winner>, <looser>
   win_title:
     enabled: true
     title: "&a&lVICTORY"
     subtitle: "&a<winner> &fhas won the fight!"
+    # How long should it take for the title to fade in
     fadeIn: 10
+    # How long should the title stay visible
     stay: 20
+    # How long should it take for the title to disappear
     fadeOut: 10
   lose_title:
     enabled: true
     title: "&c&lDEFEAT"
     subtitle: "&a<winner> &fhas won the fight!"
+    # How long should it take for the title to appear
     fadeIn: 10
+    # How long should the title stay visible
     stay: 20
+    # How long should it take for the title to disappear
     fadeOut: 10
 
+# Message and title sent after the fight starts
 start:
   enabled: true
   message:
     - " "
     - "&4&l[WARNING] &c&lDrag clicking or butterfly clicking might result in a ban!"
     - " "
+  # All values are in minecraft ticks!
+  # 20 ticks = 1 IRL second
   title:
     enabled: false
     title: "&c&lFight"
     subtitle: "Match has started"
-    fadeIn: 20,
-    stay: 20,
+    # How long should it take for the title to appear
+    fadeIn: 20
+    # How long should the title stay visible
+    stay: 20
+    # How long should it take for the title to disappear
     fadeOut: 20

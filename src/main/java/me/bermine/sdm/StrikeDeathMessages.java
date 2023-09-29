@@ -35,7 +35,9 @@ public final class StrikeDeathMessages extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new PlayerListeners(this), this);
         try {
             Class.forName("net.citizensnpcs.api.npc.NPC");
-            this.getServer().getPluginManager().registerEvents(new BotDuelListeners(), this);
+            if (Config.DEATH_ENABLED.asBoolean() && !Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
+                this.getServer().getPluginManager().registerEvents(new BotDuelListeners(), this);
+            }
         } catch (ClassNotFoundException ignored) {}
         this.getCommand("sdm").setExecutor(new MainCommand(this));
         VoidTask task = new VoidTask(this);

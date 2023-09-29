@@ -64,20 +64,22 @@ public class StrikeListeners implements Listener {
             TitleAPI.sendTitle(event.getLoser(), title, subTitle, fadeIn, stay, fadeOut);
         }
 
-        if (fight.getKit().isBridges() || fight.getKit().isBedwars()) {
-            String message = Config.DEATH_MESSAGE_WIN.asString()
+        if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
+            if (fight.getKit().isBridges() || fight.getKit().isBedwars()) {
+                String message = Config.DEATH_MESSAGE_WIN.asString()
+                        .replace("<looser>", loser)
+                        .replace("<winner>", winner);
+                fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
+                fight.getSpectators().forEach(player -> player.sendMessage(message));
+                return;
+            }
+
+            String message = Config.DEATH_MESSAGE.asString()
                     .replace("<looser>", loser)
                     .replace("<winner>", winner);
             fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
             fight.getSpectators().forEach(player -> player.sendMessage(message));
-            return;
         }
-
-        String message = Config.DEATH_MESSAGE.asString()
-                .replace("<looser>", loser)
-                .replace("<winner>", winner);
-        fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
-        fight.getSpectators().forEach(player -> player.sendMessage(message));
     }
 
     @EventHandler
@@ -91,10 +93,12 @@ public class StrikeListeners implements Listener {
             int fadeOut = Config.START_TITLE_FADEOUT.asInt();
             e.getFight().getPlayersInFight().forEach(p -> TitleAPI.sendTitle(p, title, subTitle, fadeIn, stay, fadeOut));
         }
-        Bukkit.getScheduler().runTaskLater(plugin, () ->
-            Config.START_MESSAGE.asList().forEach(s -> {
-                e.getPlayer1().sendMessage(s);
-                e.getPlayer2().sendMessage(s);
-            }),101L);
+        if (!Config.START_DISABLE_MESSAGE.asBoolean()) {
+            Bukkit.getScheduler().runTaskLater(plugin, () ->
+                Config.START_MESSAGE.asList().forEach(s -> {
+                    e.getPlayer1().sendMessage(s);
+                    e.getPlayer2().sendMessage(s);
+                }),101L);
+        }
     }
 }

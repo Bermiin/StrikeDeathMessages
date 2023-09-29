@@ -9,7 +9,7 @@ import ga.strikepractice.fights.other.FFAFight;
 import lombok.RequiredArgsConstructor;
 import me.bermine.sdm.Config;
 import me.bermine.sdm.StrikeDeathMessages;
-import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -17,7 +17,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,41 +43,48 @@ public class PlayerListeners implements Listener {
         if (!(fight instanceof BestOfFight) || fight instanceof BotFight) return;
 
         List<Player> playersInFight = fight.getPlayersInFight();
-        Optional<Player> optionalPlayer = playersInFight.stream().filter(p -> !p.getName().equals(damaged.getName())).findFirst();
-        if (!optionalPlayer.isPresent()) return;
-        Player opponent = optionalPlayer.get();
+        Player opponent = playersInFight.stream().filter(p -> !p.getName().equals(damaged.getName())).findFirst().orElse(null);
+        if (opponent == null) return;
 
         if (fight.getKit().isBedwars() || fight.getKit().isBridges() && !fight.hasEnded()) {
             if (damaged.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK) {
-                playersInFight.forEach(player ->
-                    player.sendMessage(Config.DEATH_MESSAGE.asString()
-                        .replace("<looser>", damaged.getName())
-                        .replace("<winner>", opponent.getName()))
-                );
-                fight.getSpectators().forEach(spectator ->
-                    spectator.sendMessage(Config.DEATH_MESSAGE.asString()
-                        .replace("<looser>", damaged.getName())
-                        .replace("<winner>", opponent.getName()))
-                );
+                playersInFight.forEach(player -> {
+                    if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
+                        player.sendMessage(Config.DEATH_MESSAGE.asString()
+                            .replace("<looser>", damaged.getName())
+                            .replace("<winner>", opponent.getName()));
+                    }
+                });
+                fight.getSpectators().forEach(spectator -> {
+                    if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
+                        spectator.sendMessage(Config.DEATH_MESSAGE.asString()
+                            .replace("<looser>", damaged.getName())
+                            .replace("<winner>", opponent.getName()));
+                    }
+                });
             }
             if (damaged.getLastDamageCause().getCause() == DamageCause.FALL) {
-                playersInFight.forEach(player ->
-                    player.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
-                        .replace("<player>", damaged.getName())
-                        .replace("<opponent>", opponent.getName()))
-                );
-                fight.getSpectators().forEach(spectator ->
-                    spectator.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
-                        .replace("<player>", damaged.getName())
-                        .replace("<opponent>", opponent.getName()))
-                );
+                playersInFight.forEach(player -> {
+                    if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
+                        player.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
+                                .replace("<player>", damaged.getName())
+                                .replace("<opponent>", opponent.getName()));
+                    }
+                });
+                fight.getSpectators().forEach(spectator -> {
+                    if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
+                        spectator.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
+                                .replace("<player>", damaged.getName())
+                                .replace("<opponent>", opponent.getName()));
+                    }
+                });
             }
         }
     }
 
     @EventHandler
     public void handleFFA(PlayerDeathEvent event) {
-        if (!plugin.getConfig().getBoolean("death.enabled")) return;
+        if (!Config.DEATH_ENABLED.asBoolean()) return;
         StrikePracticeAPI api = StrikePractice.getAPI();
         Player dead = event.getEntity();
         Player killer = dead.getKiller();
@@ -86,29 +92,37 @@ public class PlayerListeners implements Listener {
         if (!(fight instanceof FFAFight)) return;
 
         if (killer == null) {
-            fight.getPlayersInFight().forEach(player ->
-                player.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
-                    .replace("<player>", dead.getName())
-                )
-            );
-            fight.getSpectators().forEach(spectator ->
-                spectator.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
-                        .replace("<player>", dead.getName())
-                )
-            );
+            if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
+                fight.getPlayersInFight().forEach(player -> {
+                    player.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
+                            .replace("<player>", dead.getName())
+                    );
+                });
+            }
+            fight.getSpectators().forEach(spectator -> {
+                if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
+                    spectator.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
+                            .replace("<player>", dead.getName())
+                    );
+                }
+            });
             return;
         }
-        fight.getPlayersInFight().forEach(player ->
-            player.sendMessage(Config.DEATH_MESSAGE.asString()
-                    .replace("<winner>", killer.getName())
-                    .replace("<looser>", dead.getName())
-            )
-        );
-        fight.getSpectators().forEach(spectator ->
-            spectator.sendMessage(Config.DEATH_MESSAGE.asString()
-                    .replace("<winner>", killer.getName())
-                    .replace("<looser>", dead.getName())
-            )
-        );
+        fight.getPlayersInFight().forEach(player -> {
+            if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
+                player.sendMessage(Config.DEATH_MESSAGE.asString()
+                        .replace("<winner>", killer.getName())
+                        .replace("<looser>", dead.getName())
+                );
+            }
+        });
+        fight.getSpectators().forEach(spectator -> {
+            if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
+                spectator.sendMessage(Config.DEATH_MESSAGE.asString()
+                        .replace("<winner>", killer.getName())
+                        .replace("<looser>", dead.getName())
+                );
+            }
+        });
     }
 }

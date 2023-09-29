@@ -1,7 +1,11 @@
 no_perms: "&cNo permission."
 
 death:
+  # Enables any death handling
+  # Including messages, titles, etc..
   enabled: true
+  # Disables sending messages
+  disable_message: false
   message: "&a<winner> &7killed &c<looser>"
   # If death was not caused by another player (e.g. player died in void)
   # Placeholders: <player> (the player that died), <opponent>
@@ -22,6 +26,7 @@ death:
   # 20 ticks = 1 IRL second
   # Placeholders: <winner>, <looser>
   win_title:
+    # Enables winner title
     enabled: true
     title: "&a&lVICTORY"
     subtitle: "&a<winner> &fhas won the fight!"
@@ -32,6 +37,7 @@ death:
     # How long should it take for the title to disappear
     fadeOut: 10
   lose_title:
+    # Enables lose title
     enabled: true
     title: "&c&lDEFEAT"
     subtitle: "&a<winner> &fhas won the fight!"
@@ -45,6 +51,7 @@ death:
 # Message and title sent after the fight starts
 start:
   enabled: true
+  disable_message: false
   message:
     - " "
     - "&4&l[WARNING] &c&lDrag clicking or butterfly clicking might result in a ban!"

@@ -9,7 +9,6 @@ public class BotDuelListeners implements Listener {
 
     @EventHandler
     public void handleBotDuels(BotDuelEndEvent e) {
-        if (!Config.DEATH_ENABLED.asBoolean()) return;
         String message = Config.DEATH_MESSAGE.asString()
                 .replace("<winner>", e.getWinner())
                 .replace("<looser>", e.getLoser());

@@ -11,6 +11,7 @@ import java.util.List;
 public enum Config {
     NO_PERMISSIONS("no_permissions", "&cNo permission."),
     DEATH_ENABLED("death.enabled", true),
+    DEATH_DISABLE_MESSAGE("death.disable_message", false),
     DEATH_MESSAGE("death.message", "&a<winner> &7Killed &c<looser>"),
     DEATH_MESSAGE_NO_PLAYER("death.message_no_player", "&c<player> &7died."),
     DEATH_MESSAGE_WIN("death.message_win", "&a<player> &7won the game."),
@@ -31,6 +32,7 @@ public enum Config {
     LOSE_TITLE_STAY("death.loose_title.stay", 20),
     LOSE_TITLE_FADEOUT("death.loose_title.fadeOut", 10),
     START_ENABLED("start.enabled", true),
+    START_DISABLE_MESSAGE("start.disable_message", false),
     START_MESSAGE("start.message", Arrays.asList(
             " ",
             "&4&l[WARNING] &c&lDrag clicking or butterfly clicking might result in a ban!",

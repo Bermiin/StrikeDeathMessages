@@ -111,36 +111,4 @@ public class PlayerListeners implements Listener {
             )
         );
     }
-
-    private boolean teleporting = false;
-
-    @EventHandler
-    public void onMove(PlayerMoveEvent e) {
-        if (!Config.DEATH_ENABLED.asBoolean()) return;
-        if (e.getFrom().getBlockY() == -1.0 || e.getFrom().getBlockY() == -2.0) {
-            execute(e.getPlayer());
-        }
-    }
-
-    private void execute(Player dead) {
-        if (teleporting) return;
-        teleporting = true;
-        StrikePracticeAPI api = StrikePractice.getAPI();
-        Fight fight = api.getFight(dead);
-        if (fight == null) return;
-
-        List<Player> playersInFight = fight.getPlayersInFight();
-        Optional<Player> optionalPlayer = playersInFight.stream().filter(p -> !p.getName().equals(dead.getName())).findAny();
-        if (!optionalPlayer.isPresent()) return;
-        Player opponent = optionalPlayer.get();
-
-        String message = Config.DEATH_MESSAGE_NO_PLAYER.asString()
-            .replace("<player>", dead.getName())
-            .replace("<opponent>", opponent.getName());
-        fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
-        fight.getSpectators().forEach(spectator -> spectator.sendMessage(message));
-        // Prevent sending multiple messages when both -1.0 and -2.0 Y-cords are present
-        Bukkit.getScheduler().runTaskLater(plugin, () -> teleporting = false, 5L);
-    }
-
 }

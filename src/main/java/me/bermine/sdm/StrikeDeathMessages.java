@@ -6,6 +6,7 @@ import me.bermine.sdm.commands.MainCommand;
 import me.bermine.sdm.listeners.BotDuelListeners;
 import me.bermine.sdm.listeners.PlayerListeners;
 import me.bermine.sdm.listeners.StrikeListeners;
+import me.bermine.sdm.tasks.VoidTask;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -37,6 +38,8 @@ public final class StrikeDeathMessages extends JavaPlugin {
             this.getServer().getPluginManager().registerEvents(new BotDuelListeners(), this);
         } catch (ClassNotFoundException ignored) {}
         this.getCommand("sdm").setExecutor(new MainCommand(this));
+        VoidTask task = new VoidTask(this);
+        task.runTaskTimer(this, 10L, 10L);
         getLogger().info("Plugin has been enabled");
     }
 

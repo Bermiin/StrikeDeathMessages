@@ -13,11 +13,21 @@ death:
   # When player wins a bedwars or bridges game
   # Placeholders: <winner>, <looser>
   message_win: "&a<winner> &7won the game."
-  # sound that will be played at the end of every game
+  # Sound that will be played after a player dies
   # WARNING: The default sound is for 1.8 Only!
   # All 1.8 sounds can be found here: https://helpch.at/docs/1.8/index.html?org/bukkit/Sound.html
   # All 1.9+ sounds can be found here: https://helpch.at/docs/1.9/index.html?org/bukkit/Sound.html
-  sound:
+  death_sound:
+    # Enables playing sound after death
+    enabled: true
+    # Whether spectators should be able to hear death sound
+    send_to_spectators: true
+    sound: "ORB_PICKUP"
+    volume: 1.0
+    pitch: 1.0
+  # Sound that will be played at the end of every game
+  end_sound:
+    # Enables playing sound after death
     enabled: true
     sound: "AMBIENCE_THUNDER"
     volume: 1.0

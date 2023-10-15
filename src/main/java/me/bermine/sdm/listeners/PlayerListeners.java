@@ -19,7 +19,6 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Bermine
@@ -54,6 +53,12 @@ public class PlayerListeners implements Listener {
                             .replace("<looser>", damaged.getName())
                             .replace("<winner>", opponent.getName()));
                     }
+                    if (Config.DEATH_SOUND_ENABLED.asBoolean()) {
+                        Sound sound = Sound.valueOf(Config.DEATH_SOUND_VALUE.asString());
+                        int volume = Config.DEATH_SOUND_VOLUME.asInt();
+                        int pitch = Config.DEATH_SOUND_PITCH.asInt();
+                        player.playSound(player.getLocation(), sound, volume, pitch);
+                    }
                 });
                 fight.getSpectators().forEach(spectator -> {
                     if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
@@ -61,21 +66,39 @@ public class PlayerListeners implements Listener {
                             .replace("<looser>", damaged.getName())
                             .replace("<winner>", opponent.getName()));
                     }
+                    if (Config.DEATH_SOUND_SEND_SPECT.asBoolean()) {
+                        Sound sound = Sound.valueOf(Config.DEATH_SOUND_VALUE.asString());
+                        int volume = Config.DEATH_SOUND_VOLUME.asInt();
+                        int pitch = Config.DEATH_SOUND_PITCH.asInt();
+                        spectator.playSound(spectator.getLocation(), sound, volume, pitch);
+                    }
                 });
             }
             if (damaged.getLastDamageCause().getCause() == DamageCause.FALL) {
                 playersInFight.forEach(player -> {
                     if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
                         player.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
-                                .replace("<player>", damaged.getName())
-                                .replace("<opponent>", opponent.getName()));
+                            .replace("<player>", damaged.getName())
+                            .replace("<opponent>", opponent.getName()));
+                    }
+                    if (Config.DEATH_SOUND_ENABLED.asBoolean()) {
+                        Sound sound = Sound.valueOf(Config.DEATH_SOUND_VALUE.asString());
+                        int volume = Config.DEATH_SOUND_VOLUME.asInt();
+                        int pitch = Config.DEATH_SOUND_PITCH.asInt();
+                        player.playSound(player.getLocation(), sound, volume, pitch);
                     }
                 });
                 fight.getSpectators().forEach(spectator -> {
                     if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
                         spectator.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
-                                .replace("<player>", damaged.getName())
-                                .replace("<opponent>", opponent.getName()));
+                            .replace("<player>", damaged.getName())
+                            .replace("<opponent>", opponent.getName()));
+                    }
+                    if (Config.DEATH_SOUND_SEND_SPECT.asBoolean()) {
+                        Sound sound = Sound.valueOf(Config.DEATH_SOUND_VALUE.asString());
+                        int volume = Config.DEATH_SOUND_VOLUME.asInt();
+                        int pitch = Config.DEATH_SOUND_PITCH.asInt();
+                        spectator.playSound(spectator.getLocation(), sound, volume, pitch);
                     }
                 });
             }
@@ -93,17 +116,22 @@ public class PlayerListeners implements Listener {
 
         if (killer == null) {
             if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
-                fight.getPlayersInFight().forEach(player -> {
+                fight.getPlayersInFight().forEach(player ->
                     player.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
-                            .replace("<player>", dead.getName())
-                    );
-                });
+                        .replace("<player>", dead.getName())
+                ));
             }
             fight.getSpectators().forEach(spectator -> {
                 if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
                     spectator.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
                             .replace("<player>", dead.getName())
                     );
+                }
+                if (Config.DEATH_SOUND_SEND_SPECT.asBoolean()) {
+                    Sound sound = Sound.valueOf(Config.DEATH_SOUND_VALUE.asString());
+                    int volume = Config.DEATH_SOUND_VOLUME.asInt();
+                    int pitch = Config.DEATH_SOUND_PITCH.asInt();
+                    spectator.playSound(spectator.getLocation(), sound, volume, pitch);
                 }
             });
             return;
@@ -115,6 +143,12 @@ public class PlayerListeners implements Listener {
                         .replace("<looser>", dead.getName())
                 );
             }
+            if (Config.DEATH_SOUND_ENABLED.asBoolean()) {
+                Sound sound = Sound.valueOf(Config.DEATH_SOUND_VALUE.asString());
+                int volume = Config.DEATH_SOUND_VOLUME.asInt();
+                int pitch = Config.DEATH_SOUND_PITCH.asInt();
+                player.playSound(player.getLocation(), sound, volume, pitch);
+            }
         });
         fight.getSpectators().forEach(spectator -> {
             if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
@@ -122,6 +156,12 @@ public class PlayerListeners implements Listener {
                         .replace("<winner>", killer.getName())
                         .replace("<looser>", dead.getName())
                 );
+            }
+            if (Config.DEATH_SOUND_SEND_SPECT.asBoolean()) {
+                Sound sound = Sound.valueOf(Config.DEATH_SOUND_VALUE.asString());
+                int volume = Config.DEATH_SOUND_VOLUME.asInt();
+                int pitch = Config.DEATH_SOUND_PITCH.asInt();
+                spectator.playSound(spectator.getLocation(), sound, volume, pitch);
             }
         });
     }

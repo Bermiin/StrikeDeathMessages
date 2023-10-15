@@ -15,10 +15,15 @@ public enum Config {
     DEATH_MESSAGE("death.message", "&a<winner> &7Killed &c<looser>"),
     DEATH_MESSAGE_NO_PLAYER("death.message_no_player", "&c<player> &7died."),
     DEATH_MESSAGE_WIN("death.message_win", "&a<player> &7won the game."),
-    SOUND_ENABLED("death.sound.enabled", true),
-    SOUND_VALUE("death.sound.sound", "AMBIENCE_THUNDER"),
-    SOUND_VOLUME("death.sound.volume", 1.0),
-    SOUND_PITCH("death.sound.pitch", 1.0),
+    DEATH_SOUND_ENABLED("death.death_sound.enabled", true),
+    DEATH_SOUND_SEND_SPECT("death.death_sound.send_to_spectators", true),
+    DEATH_SOUND_VALUE("death.death_sound.sound", "ORB_PICKUP"),
+    DEATH_SOUND_VOLUME("death.death_sound.volume", 1.0),
+    DEATH_SOUND_PITCH("death.death_sound.pitch", 1.0),
+    END_SOUND_ENABLED("death.end_sound.enabled", true),
+    END_SOUND_VALUE("death.end_sound.sound", "AMBIENCE_THUNDER"),
+    END_SOUND_VOLUME("death.end_sound.volume", 1.0),
+    END_SOUND_PITCH("death.end_sound.pitch", 1.0),
     WIN_TITLE_ENABLED("death.win_title.enabled", true),
     WIN_TITLE_TITLE("death.win_title.title", "&a&lVICTORY"),
     WIN_TITLE_SUBTITLE("death.win_title.subtitle", "&a<winner> &fhas won the fight"),
@@ -46,9 +51,9 @@ public enum Config {
     START_TITLE_FADEOUT("start.title.fadeOut", 20)
     ;
 
-private final String path;
-private final Object def;
-private static StrikeDeathMessages plugin;
+    private final String path;
+    private final Object def;
+    private static StrikeDeathMessages plugin;
 
     public String asString() {
         return CC.translate(plugin.getConfig().getString(path, (String) def));

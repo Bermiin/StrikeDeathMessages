@@ -8,10 +8,10 @@ death:
   disable_message: false
   message: "&a<winner> &7killed &c<looser>"
   # If death was not caused by another player (e.g. player died in void)
-  # Placeholders: <player> (the player that died), <opponent>
+  # Placeholders: <player>
   message_no_player: "&c<player> &7died."
   # When player wins a bedwars or bridges game
-  # Placeholders: <winner>, <looser>
+  # Placeholders: <winner>, <loser>
   message_win: "&a<winner> &7won the game."
   # Sound that will be played after a player dies
   death_sound:
@@ -31,7 +31,7 @@ death:
     pitch: 1.0
   # All values are in minecraft ticks!
   # 20 ticks = 1 IRL second
-  # Placeholders: <winner>, <looser>
+  # Placeholders: <winner>, <loser>
   win_title:
     # Enables winner title
     enabled: true

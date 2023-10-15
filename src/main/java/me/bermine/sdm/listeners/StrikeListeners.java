@@ -68,7 +68,7 @@ public class StrikeListeners implements Listener {
         if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
             if (fight.getKit().isBridges() || fight.getKit().isBedwars()) {
                 String message = Config.DEATH_MESSAGE_WIN.asString()
-                        .replace("<looser>", loser)
+                        .replace("<loser>", loser)
                         .replace("<winner>", winner);
                 fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
                 fight.getSpectators().forEach(player -> player.sendMessage(message));
@@ -76,7 +76,7 @@ public class StrikeListeners implements Listener {
             }
 
             String message = Config.DEATH_MESSAGE.asString()
-                    .replace("<looser>", loser)
+                    .replace("<loser>", loser)
                     .replace("<winner>", winner);
             fight.getPlayersInFight().forEach(player -> player.sendMessage(message));
             fight.getSpectators().forEach(player -> player.sendMessage(message));

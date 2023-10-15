@@ -39,8 +39,7 @@ public class VoidTask extends BukkitRunnable {
                 if (opponent == null) continue;
 
                 String message = Config.DEATH_MESSAGE_NO_PLAYER.asString()
-                        .replace("<player>", player.getName())
-                        .replace("<opponent>", opponent.getName());
+                        .replace("<player>", player.getName());
                 fight.getPlayersInFight().forEach(fightPlayer -> fightPlayer.sendMessage(message));
                 fight.getSpectators().forEach(spectator -> spectator.sendMessage(message));
                 Bukkit.getScheduler().runTaskLater(plugin, () -> teleporting.set(false), 5L);

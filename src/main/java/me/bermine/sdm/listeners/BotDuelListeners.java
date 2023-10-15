@@ -11,7 +11,7 @@ public class BotDuelListeners implements Listener {
     public void handleBotDuels(BotDuelEndEvent e) {
         String message = Config.DEATH_MESSAGE.asString()
                 .replace("<winner>", e.getWinner())
-                .replace("<looser>", e.getLoser());
+                .replace("<loser>", e.getLoser());
         e.getFight().getPlayersInFight().forEach(player -> player.sendMessage(message));
         e.getFight().getSpectators().forEach(player -> player.sendMessage(message));
     }

@@ -50,7 +50,7 @@ public class PlayerListeners implements Listener {
                 playersInFight.forEach(player -> {
                     if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
                         player.sendMessage(Config.DEATH_MESSAGE.asString()
-                            .replace("<looser>", damaged.getName())
+                            .replace("<loser>", damaged.getName())
                             .replace("<winner>", opponent.getName()));
                     }
                     if (Config.DEATH_SOUND_ENABLED.asBoolean()) {
@@ -64,7 +64,7 @@ public class PlayerListeners implements Listener {
                 fight.getSpectators().forEach(spectator -> {
                     if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
                         spectator.sendMessage(Config.DEATH_MESSAGE.asString()
-                            .replace("<looser>", damaged.getName())
+                            .replace("<loser>", damaged.getName())
                             .replace("<winner>", opponent.getName()));
                     }
                     if (Config.DEATH_SOUND_SEND_SPECT.asBoolean()) {
@@ -80,8 +80,7 @@ public class PlayerListeners implements Listener {
                 playersInFight.forEach(player -> {
                     if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
                         player.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
-                            .replace("<player>", damaged.getName())
-                            .replace("<opponent>", opponent.getName()));
+                            .replace("<player>", damaged.getName()));
                     }
                     if (Config.DEATH_SOUND_ENABLED.asBoolean()) {
                         XSound xSound = XSound.matchXSound(Config.DEATH_SOUND_VALUE.asString()).orElse(null);
@@ -94,8 +93,7 @@ public class PlayerListeners implements Listener {
                 fight.getSpectators().forEach(spectator -> {
                     if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
                         spectator.sendMessage(Config.DEATH_MESSAGE_NO_PLAYER.asString()
-                            .replace("<player>", damaged.getName())
-                            .replace("<opponent>", opponent.getName()));
+                            .replace("<player>", damaged.getName()));
                     }
                     if (Config.DEATH_SOUND_SEND_SPECT.asBoolean()) {
                         XSound xSound = XSound.matchXSound(Config.DEATH_SOUND_VALUE.asString()).orElse(null);
@@ -145,7 +143,7 @@ public class PlayerListeners implements Listener {
             if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
                 player.sendMessage(Config.DEATH_MESSAGE.asString()
                         .replace("<winner>", killer.getName())
-                        .replace("<looser>", dead.getName())
+                        .replace("<loser>", dead.getName())
                 );
             }
             if (Config.DEATH_SOUND_ENABLED.asBoolean()) {
@@ -160,7 +158,7 @@ public class PlayerListeners implements Listener {
             if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {
                 spectator.sendMessage(Config.DEATH_MESSAGE.asString()
                         .replace("<winner>", killer.getName())
-                        .replace("<looser>", dead.getName())
+                        .replace("<loser>", dead.getName())
                 );
             }
             if (Config.DEATH_SOUND_SEND_SPECT.asBoolean()) {

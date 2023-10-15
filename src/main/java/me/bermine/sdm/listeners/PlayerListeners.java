@@ -1,5 +1,6 @@
 package me.bermine.sdm.listeners;
 
+import com.cryptomorin.xseries.XSound;
 import ga.strikepractice.StrikePractice;
 import ga.strikepractice.api.StrikePracticeAPI;
 import ga.strikepractice.fights.BotFight;
@@ -9,7 +10,6 @@ import ga.strikepractice.fights.other.FFAFight;
 import lombok.RequiredArgsConstructor;
 import me.bermine.sdm.Config;
 import me.bermine.sdm.StrikeDeathMessages;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -54,10 +54,11 @@ public class PlayerListeners implements Listener {
                             .replace("<winner>", opponent.getName()));
                     }
                     if (Config.DEATH_SOUND_ENABLED.asBoolean()) {
-                        Sound sound = Sound.valueOf(Config.DEATH_SOUND_VALUE.asString());
+                        XSound xSound = XSound.matchXSound(Config.DEATH_SOUND_VALUE.asString()).orElse(null);
+                        if (xSound == null || !xSound.isSupported()) return;
                         int volume = Config.DEATH_SOUND_VOLUME.asInt();
                         int pitch = Config.DEATH_SOUND_PITCH.asInt();
-                        player.playSound(player.getLocation(), sound, volume, pitch);
+                        xSound.play(player.getLocation(), volume, pitch);
                     }
                 });
                 fight.getSpectators().forEach(spectator -> {
@@ -67,10 +68,11 @@ public class PlayerListeners implements Listener {
                             .replace("<winner>", opponent.getName()));
                     }
                     if (Config.DEATH_SOUND_SEND_SPECT.asBoolean()) {
-                        Sound sound = Sound.valueOf(Config.DEATH_SOUND_VALUE.asString());
+                        XSound xSound = XSound.matchXSound(Config.DEATH_SOUND_VALUE.asString()).orElse(null);
+                        if (xSound == null || !xSound.isSupported()) return;
                         int volume = Config.DEATH_SOUND_VOLUME.asInt();
                         int pitch = Config.DEATH_SOUND_PITCH.asInt();
-                        spectator.playSound(spectator.getLocation(), sound, volume, pitch);
+                        xSound.play(spectator.getLocation(), volume, pitch);
                     }
                 });
             }
@@ -82,10 +84,11 @@ public class PlayerListeners implements Listener {
                             .replace("<opponent>", opponent.getName()));
                     }
                     if (Config.DEATH_SOUND_ENABLED.asBoolean()) {
-                        Sound sound = Sound.valueOf(Config.DEATH_SOUND_VALUE.asString());
+                        XSound xSound = XSound.matchXSound(Config.DEATH_SOUND_VALUE.asString()).orElse(null);
+                        if (xSound == null || !xSound.isSupported()) return;
                         int volume = Config.DEATH_SOUND_VOLUME.asInt();
                         int pitch = Config.DEATH_SOUND_PITCH.asInt();
-                        player.playSound(player.getLocation(), sound, volume, pitch);
+                        xSound.play(player.getLocation(), volume, pitch);
                     }
                 });
                 fight.getSpectators().forEach(spectator -> {
@@ -95,10 +98,11 @@ public class PlayerListeners implements Listener {
                             .replace("<opponent>", opponent.getName()));
                     }
                     if (Config.DEATH_SOUND_SEND_SPECT.asBoolean()) {
-                        Sound sound = Sound.valueOf(Config.DEATH_SOUND_VALUE.asString());
+                        XSound xSound = XSound.matchXSound(Config.DEATH_SOUND_VALUE.asString()).orElse(null);
+                        if (xSound == null || !xSound.isSupported()) return;
                         int volume = Config.DEATH_SOUND_VOLUME.asInt();
                         int pitch = Config.DEATH_SOUND_PITCH.asInt();
-                        spectator.playSound(spectator.getLocation(), sound, volume, pitch);
+                        xSound.play(spectator.getLocation(), volume, pitch);
                     }
                 });
             }
@@ -128,10 +132,11 @@ public class PlayerListeners implements Listener {
                     );
                 }
                 if (Config.DEATH_SOUND_SEND_SPECT.asBoolean()) {
-                    Sound sound = Sound.valueOf(Config.DEATH_SOUND_VALUE.asString());
+                    XSound xSound = XSound.matchXSound(Config.DEATH_SOUND_VALUE.asString()).orElse(null);
+                    if (xSound == null || !xSound.isSupported()) return;
                     int volume = Config.DEATH_SOUND_VOLUME.asInt();
                     int pitch = Config.DEATH_SOUND_PITCH.asInt();
-                    spectator.playSound(spectator.getLocation(), sound, volume, pitch);
+                    xSound.play(spectator.getLocation(), volume, pitch);
                 }
             });
             return;
@@ -144,10 +149,11 @@ public class PlayerListeners implements Listener {
                 );
             }
             if (Config.DEATH_SOUND_ENABLED.asBoolean()) {
-                Sound sound = Sound.valueOf(Config.DEATH_SOUND_VALUE.asString());
+                XSound xSound = XSound.matchXSound(Config.DEATH_SOUND_VALUE.asString()).orElse(null);
+                if (xSound == null || !xSound.isSupported()) return;
                 int volume = Config.DEATH_SOUND_VOLUME.asInt();
                 int pitch = Config.DEATH_SOUND_PITCH.asInt();
-                player.playSound(player.getLocation(), sound, volume, pitch);
+                xSound.play(player.getLocation(), volume, pitch);
             }
         });
         fight.getSpectators().forEach(spectator -> {
@@ -158,10 +164,11 @@ public class PlayerListeners implements Listener {
                 );
             }
             if (Config.DEATH_SOUND_SEND_SPECT.asBoolean()) {
-                Sound sound = Sound.valueOf(Config.DEATH_SOUND_VALUE.asString());
+                XSound xSound = XSound.matchXSound(Config.DEATH_SOUND_VALUE.asString()).orElse(null);
+                if (xSound == null || !xSound.isSupported()) return;
                 int volume = Config.DEATH_SOUND_VOLUME.asInt();
                 int pitch = Config.DEATH_SOUND_PITCH.asInt();
-                spectator.playSound(spectator.getLocation(), sound, volume, pitch);
+                xSound.play(spectator.getLocation(), volume, pitch);
             }
         });
     }

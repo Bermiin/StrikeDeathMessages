@@ -31,6 +31,34 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.4</version>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>com.cryptomorin.xseries</pattern>
+                            <shadedPattern>me.bermine.sdm.util.xseries</shadedPattern>
+                        </relocation>
+                    </relocations>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/**</exclude>
+                                <exclude>com/cryptomorin/xseries/XBiome*</exclude>
+                                <exclude>com/cryptomorin/xseries/NMSExtras*</exclude>
+                                <exclude>com/cryptomorin/xseries/NoteBlockMusic*</exclude>
+                                <exclude>com/cryptomorin/xseries/messages/*</exclude>
+                                <exclude>com/cryptomorin/xseries/particles/*</exclude>
+                                <exclude>com/cryptomorin/xseries/XEnchantment*</exclude>
+                                <exclude>com/cryptomorin/xseries/XTag*</exclude>
+                                <exclude>com/cryptomorin/xseries/XMaterial*</exclude>
+                                <exclude>com/cryptomorin/xseries/XBlock*</exclude>
+                                <exclude>com/cryptomorin/xseries/XItemStack*</exclude>
+                                <exclude>com/cryptomorin/xseries/XPotion*</exclude>
+                                <exclude>com/cryptomorin/xseries/XEntity*</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -88,6 +116,12 @@
             <groupId>com.connorlinfoot</groupId>
             <artifactId>TitleAPI</artifactId>
             <version>1.8.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.cryptomorin</groupId>
+            <artifactId>XSeries</artifactId>
+            <version>9.6.1.1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

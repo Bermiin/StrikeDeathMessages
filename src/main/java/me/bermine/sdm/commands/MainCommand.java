@@ -27,6 +27,7 @@ public class MainCommand implements CommandExecutor {
             return true;
         }
         plugin.reloadConfig();
+        Config.validateSound();
         sender.sendMessage(CC.translate("&aSuccessfully reloaded config.yml"));
         return false;
     }

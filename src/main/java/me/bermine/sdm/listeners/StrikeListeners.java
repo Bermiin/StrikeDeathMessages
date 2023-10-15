@@ -1,6 +1,7 @@
 package me.bermine.sdm.listeners;
 
 import com.connorlinfoot.titleapi.TitleAPI;
+import com.cryptomorin.xseries.XSound;
 import ga.strikepractice.events.DuelEndEvent;
 import ga.strikepractice.events.DuelStartEvent;
 import ga.strikepractice.fights.Fight;
@@ -8,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import me.bermine.sdm.Config;
 import me.bermine.sdm.StrikeDeathMessages;
 import org.bukkit.Bukkit;
-import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -27,11 +27,12 @@ public class StrikeListeners implements Listener {
         String winner = event.getWinner().getName();
         String loser = event.getLoser().getName();
         if (Config.END_SOUND_ENABLED.asBoolean()) {
-            String sound = Config.END_SOUND_VALUE.asString();
-            float v = (float) Config.END_SOUND_VOLUME.asDouble();
-            float p = (float) Config.END_SOUND_PITCH.asDouble();
-            event.getLoser().playSound(event.getLoser().getLocation(), Sound.valueOf(sound), v, p);
-            event.getWinner().playSound(event.getLoser().getLocation(), Sound.valueOf(sound), v, p);
+            XSound xSound = XSound.matchXSound(Config.END_SOUND_VALUE.asString()).orElse(null);
+            if (xSound == null || !xSound.isSupported()) return;
+            float volume = (float) Config.END_SOUND_VOLUME.asDouble();
+            float pitch = (float) Config.END_SOUND_PITCH.asDouble();
+            xSound.play(event.getLoser().getLocation(), volume, pitch);
+            xSound.play(event.getWinner().getLocation(), volume, pitch);
         }
         Fight fight = event.getFight();
         if(fight == null) {

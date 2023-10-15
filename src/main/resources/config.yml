@@ -14,9 +14,6 @@ death:
   # Placeholders: <winner>, <looser>
   message_win: "&a<winner> &7won the game."
   # Sound that will be played after a player dies
-  # WARNING: The default sound is for 1.8 Only!
-  # All 1.8 sounds can be found here: https://helpch.at/docs/1.8/index.html?org/bukkit/Sound.html
-  # All 1.9+ sounds can be found here: https://helpch.at/docs/1.9/index.html?org/bukkit/Sound.html
   death_sound:
     # Enables playing sound after death
     enabled: true

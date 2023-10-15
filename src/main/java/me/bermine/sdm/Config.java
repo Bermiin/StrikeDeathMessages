@@ -1,5 +1,6 @@
 package me.bermine.sdm;
 
+import com.cryptomorin.xseries.XSound;
 import lombok.RequiredArgsConstructor;
 import me.bermine.sdm.util.CC;
 
@@ -73,5 +74,20 @@ public enum Config {
 
     public static void init(StrikeDeathMessages plugin) {
         Config.plugin = plugin;
+        validateSound();
+    }
+
+    /**
+     * Checks whether configured sounds are valid and supported
+     */
+    public static void validateSound() {
+        XSound deathSound = XSound.matchXSound(DEATH_SOUND_VALUE.asString()).orElse(null);
+        XSound endSound = XSound.matchXSound(END_SOUND_VALUE.asString()).orElse(null);
+        if (deathSound == null || !deathSound.isSupported()) {
+            plugin.getLogger().warning("Invalid death sound specified!");
+        }
+        if (endSound == null || !endSound.isSupported()) {
+            plugin.getLogger().warning("Invalid end sound specified!");
+        }
     }
 }

@@ -9,8 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 /**
  * @author Bermine
  */
@@ -25,9 +23,7 @@ public class VoidTask extends BukkitRunnable {
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (!Config.DEATH_ENABLED.asBoolean()) return;
-            AtomicBoolean teleporting = new AtomicBoolean();
-            if (player.getLocation().getBlockY() < 0 && !teleporting.get()) {
-                teleporting.set(true);
+            if (player.getLocation().getBlockY() < 0) {
                 StrikePracticeAPI api = StrikePractice.getAPI();
                 Fight fight = api.getFight(player);
                 if (fight == null) continue;
@@ -42,7 +38,6 @@ public class VoidTask extends BukkitRunnable {
                         .replace("<player>", player.getName());
                 fight.getPlayersInFight().forEach(fightPlayer -> fightPlayer.sendMessage(message));
                 fight.getSpectators().forEach(spectator -> spectator.sendMessage(message));
-                Bukkit.getScheduler().runTaskLater(plugin, () -> teleporting.set(false), 5L);
             }
         }
     }

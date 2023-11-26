@@ -4,7 +4,6 @@ import ga.strikepractice.StrikePractice;
 import ga.strikepractice.api.StrikePracticeAPI;
 import ga.strikepractice.fights.Fight;
 import me.bermine.sdm.Config;
-import me.bermine.sdm.StrikeDeathMessages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -13,11 +12,6 @@ import org.bukkit.scheduler.BukkitRunnable;
  * @author Bermine
  */
 public class VoidTask extends BukkitRunnable {
-
-    private final StrikeDeathMessages plugin;
-    public VoidTask(StrikeDeathMessages plugin) {
-        this.plugin = plugin;
-    }
 
     @Override
     public void run() {

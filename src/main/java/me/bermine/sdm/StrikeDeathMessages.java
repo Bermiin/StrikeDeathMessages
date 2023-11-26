@@ -31,7 +31,7 @@ public final class StrikeDeathMessages extends JavaPlugin {
         instance = this;
         this.setupConfig();
         new TitleAPI();
-        VoidTask task = new VoidTask(this);
+        VoidTask task = new VoidTask();
         task.runTaskTimer(this, 10L, 10L);
         this.registerCommands();
         this.registerListeners();

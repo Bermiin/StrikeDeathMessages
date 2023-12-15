@@ -22,12 +22,6 @@ public class VoidTask extends BukkitRunnable {
                 Fight fight = api.getFight(player);
                 if (fight == null) continue;
 
-                Player opponent = fight.getPlayersInFight().stream()
-                        .filter(p -> p.getUniqueId().equals(player.getUniqueId()))
-                        .findFirst()
-                        .orElse(null);
-                if (opponent == null) continue;
-
                 String message = Config.DEATH_MESSAGE_NO_PLAYER.asString()
                         .replace("<player>", player.getName());
                 fight.getPlayersInFight().forEach(fightPlayer -> fightPlayer.sendMessage(message));

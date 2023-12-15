@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.bermine.sdm.Config;
 import me.bermine.sdm.StrikeDeathMessages;
 import me.bermine.sdm.util.CC;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,7 +29,7 @@ public class MainCommand implements CommandExecutor {
         }
         plugin.reloadConfig();
         Config.validateSound();
-        sender.sendMessage(CC.translate("&aSuccessfully reloaded config.yml"));
+        sender.sendMessage(ChatColor.GREEN + "Reloaded config.yml. Check console for any errors.");
         return false;
     }
 }

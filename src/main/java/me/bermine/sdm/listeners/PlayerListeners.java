@@ -56,8 +56,8 @@ public class PlayerListeners implements Listener {
                     if (Config.DEATH_SOUND_ENABLED.asBoolean()) {
                         XSound xSound = XSound.matchXSound(Config.DEATH_SOUND_VALUE.asString()).orElse(null);
                         if (xSound == null || !xSound.isSupported()) return;
-                        int volume = Config.DEATH_SOUND_VOLUME.asInt();
-                        int pitch = Config.DEATH_SOUND_PITCH.asInt();
+                        float volume = (float) Config.DEATH_SOUND_VOLUME.asDouble();
+                        float pitch = (float) Config.DEATH_SOUND_PITCH.asDouble();
                         xSound.play(player.getLocation(), volume, pitch);
                     }
                 });
@@ -70,8 +70,8 @@ public class PlayerListeners implements Listener {
                     if (Config.DEATH_SOUND_SEND_SPECT.asBoolean()) {
                         XSound xSound = XSound.matchXSound(Config.DEATH_SOUND_VALUE.asString()).orElse(null);
                         if (xSound == null || !xSound.isSupported()) return;
-                        int volume = Config.DEATH_SOUND_VOLUME.asInt();
-                        int pitch = Config.DEATH_SOUND_PITCH.asInt();
+                        float volume = (float) Config.DEATH_SOUND_VOLUME.asDouble();
+                        float pitch = (float) Config.DEATH_SOUND_PITCH.asDouble();
                         xSound.play(spectator.getLocation(), volume, pitch);
                     }
                 });
@@ -85,8 +85,8 @@ public class PlayerListeners implements Listener {
                     if (Config.DEATH_SOUND_ENABLED.asBoolean()) {
                         XSound xSound = XSound.matchXSound(Config.DEATH_SOUND_VALUE.asString()).orElse(null);
                         if (xSound == null || !xSound.isSupported()) return;
-                        int volume = Config.DEATH_SOUND_VOLUME.asInt();
-                        int pitch = Config.DEATH_SOUND_PITCH.asInt();
+                        float volume = (float) Config.DEATH_SOUND_VOLUME.asDouble();
+                        float pitch = (float) Config.DEATH_SOUND_PITCH.asDouble();
                         xSound.play(player.getLocation(), volume, pitch);
                     }
                 });
@@ -98,8 +98,8 @@ public class PlayerListeners implements Listener {
                     if (Config.DEATH_SOUND_SEND_SPECT.asBoolean()) {
                         XSound xSound = XSound.matchXSound(Config.DEATH_SOUND_VALUE.asString()).orElse(null);
                         if (xSound == null || !xSound.isSupported()) return;
-                        int volume = Config.DEATH_SOUND_VOLUME.asInt();
-                        int pitch = Config.DEATH_SOUND_PITCH.asInt();
+                        float volume = (float) Config.DEATH_SOUND_VOLUME.asDouble();
+                        float pitch = (float) Config.DEATH_SOUND_PITCH.asDouble();
                         xSound.play(spectator.getLocation(), volume, pitch);
                     }
                 });
@@ -132,8 +132,8 @@ public class PlayerListeners implements Listener {
                 if (Config.DEATH_SOUND_SEND_SPECT.asBoolean()) {
                     XSound xSound = XSound.matchXSound(Config.DEATH_SOUND_VALUE.asString()).orElse(null);
                     if (xSound == null || !xSound.isSupported()) return;
-                    int volume = Config.DEATH_SOUND_VOLUME.asInt();
-                    int pitch = Config.DEATH_SOUND_PITCH.asInt();
+                    float volume = (float) Config.DEATH_SOUND_VOLUME.asDouble();
+                    float pitch = (float) Config.DEATH_SOUND_PITCH.asDouble();
                     xSound.play(spectator.getLocation(), volume, pitch);
                 }
             });
@@ -149,8 +149,8 @@ public class PlayerListeners implements Listener {
             if (Config.DEATH_SOUND_ENABLED.asBoolean()) {
                 XSound xSound = XSound.matchXSound(Config.DEATH_SOUND_VALUE.asString()).orElse(null);
                 if (xSound == null || !xSound.isSupported()) return;
-                int volume = Config.DEATH_SOUND_VOLUME.asInt();
-                int pitch = Config.DEATH_SOUND_PITCH.asInt();
+                float volume = (float) Config.DEATH_SOUND_VOLUME.asDouble();
+                float pitch = (float) Config.DEATH_SOUND_PITCH.asDouble();
                 xSound.play(player.getLocation(), volume, pitch);
             }
         });
@@ -164,8 +164,8 @@ public class PlayerListeners implements Listener {
             if (Config.DEATH_SOUND_SEND_SPECT.asBoolean()) {
                 XSound xSound = XSound.matchXSound(Config.DEATH_SOUND_VALUE.asString()).orElse(null);
                 if (xSound == null || !xSound.isSupported()) return;
-                int volume = Config.DEATH_SOUND_VOLUME.asInt();
-                int pitch = Config.DEATH_SOUND_PITCH.asInt();
+                float volume = (float) Config.DEATH_SOUND_VOLUME.asDouble();
+                float pitch = (float) Config.DEATH_SOUND_PITCH.asDouble();
                 xSound.play(spectator.getLocation(), volume, pitch);
             }
         });

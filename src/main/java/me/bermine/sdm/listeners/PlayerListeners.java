@@ -46,6 +46,7 @@ public class PlayerListeners implements Listener {
         if (opponent == null) return;
 
         if (fight.getKit().isBedwars() || fight.getKit().isBridges() && !fight.hasEnded()) {
+            if (damaged.getLastDamageCause() == null) return;
             if (damaged.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK) {
                 playersInFight.forEach(player -> {
                     if (!Config.DEATH_DISABLE_MESSAGE.asBoolean()) {

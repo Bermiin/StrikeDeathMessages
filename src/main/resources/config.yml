@@ -57,8 +57,12 @@ death:
 
 # Message and title sent after the fight starts
 start:
+  # Enabled any start handling
+  # Including message and title
   enabled: true
+  # Disables sending message when a fight starts
   disable_message: false
+  # Message when a fight starts (after the countdown)
   message:
     - " "
     - "&4&l[WARNING] &c&lDrag clicking or butterfly clicking might result in a ban!"
@@ -66,6 +70,7 @@ start:
   # All values are in minecraft ticks!
   # 20 ticks = 1 IRL second
   title:
+    # Enables sending title after a fight starts
     enabled: false
     title: "&c&lFight"
     subtitle: "Match has started"

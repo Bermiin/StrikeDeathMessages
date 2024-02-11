@@ -20,7 +20,7 @@ public class VoidTask extends BukkitRunnable {
             if (player.getLocation().getBlockY() < 0) {
                 StrikePracticeAPI api = StrikePractice.getAPI();
                 Fight fight = api.getFight(player);
-                if (fight == null) continue;
+                if (fight == null || fight.hasEnded()) continue;
 
                 String message = Config.DEATH_MESSAGE_NO_PLAYER.asString()
                         .replace("<player>", player.getName());

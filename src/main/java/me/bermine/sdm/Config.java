@@ -10,7 +10,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public enum Config {
-    NO_PERMISSIONS("no_permissions", "&cNo permission."),
+    NO_PERMISSIONS("no_perms", "&cNo permission."),
     DEATH_ENABLED("death.enabled", true),
     DEATH_DISABLE_MESSAGE("death.disable_message", false),
     DEATH_MESSAGE("death.message", "&a<winner> &7Killed &c<looser>"),
@@ -31,12 +31,12 @@ public enum Config {
     WIN_TITLE_FADEIN("death.win_title.fadeIn", 10),
     WIN_TITLE_STAY("death.win_title.stay", 20),
     WIN_TITLE_FADEOUT("death.win_title.fadeOut", 10),
-    LOSE_TITLE_ENABLED("death.loose_title.enabled", true),
-    LOSE_TITLE_TITLE("death.loose_title.title", "&c&lDEFEAT"),
-    LOSE_TITLE_SUBTITLE("death.loose_title.subtitle", "&a<winner> &fhas won the fight"),
-    LOSE_TITLE_FADEIN("death.loose_title.fadeIn", 10),
-    LOSE_TITLE_STAY("death.loose_title.stay", 20),
-    LOSE_TITLE_FADEOUT("death.loose_title.fadeOut", 10),
+    LOSE_TITLE_ENABLED("death.lose_title.enabled", true),
+    LOSE_TITLE_TITLE("death.lose_title.title", "&c&lDEFEAT"),
+    LOSE_TITLE_SUBTITLE("death.lose_title.subtitle", "&a<winner> &fhas won the fight"),
+    LOSE_TITLE_FADEIN("death.lose_title.fadeIn", 10),
+    LOSE_TITLE_STAY("death.lose_title.stay", 20),
+    LOSE_TITLE_FADEOUT("death.lose_title.fadeOut", 10),
     START_ENABLED("start.enabled", true),
     START_DISABLE_MESSAGE("start.disable_message", false),
     START_MESSAGE("start.message", Arrays.asList(

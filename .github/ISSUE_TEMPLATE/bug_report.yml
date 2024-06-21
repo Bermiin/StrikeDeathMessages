@@ -1,0 +1,53 @@
+name: Bug report
+description: Found a bug? Report it here!
+labels:
+  - bug
+
+body:
+  - type: textarea
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected behaviour
+      description: What behaviour do you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: How to reproduce
+      description: Steps to reproduce the behavior
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Errors
+      description: Are there any console errors? Please use [MCLogs](https://mclo.gs) or a pastebin service of your choice when reporting errors.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Server version and software
+      description: "Please include the name of your spigot or paper fork if you are using one. Example: CarbonSpigot 1.8.8"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: StrikePractice version
+      description: Please include a valid version number. 'latest' (or similar) is not a valid version.
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: Checks
+      description: Lets verify few things
+      options:
+        - label: I am using the latest version of StrikeDeathMessages available at https://github.com/Bermiin/StrikeDeathMessages/releases
+          required: true
+        - label: I ticked all of the boxes without actually reading them
+          required: false
+        - label: I am using a latest release of StrikePractice or the latest development build
+          required: true

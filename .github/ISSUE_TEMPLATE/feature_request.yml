@@ -1,0 +1,39 @@
+name: Feature request
+description: Suggest an idea for this project
+labels:
+  - enhancement
+
+body:
+  - type: textarea
+    attributes:
+      label: Why?
+      description: Please describe why should this suggestion be added.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: What?
+      description: A clear and concise description of what you actually want.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Describe alternatives you've considered
+      description: A clear and concise description of any alternative solutions or features you've considered
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional context
+      description: Any other context or screenshots related to your feature request.
+    validations:
+      required: false
+  - type: checkboxes
+    attributes:
+      label: Checks
+      description: Lets verify few things
+      options:
+        - label: I have verified that this feature doesn't already exist in the latest version of StrikeDeathMessages
+          required: true
+        - label: I have verified that my idea hasn't already been suggested
+          required: true

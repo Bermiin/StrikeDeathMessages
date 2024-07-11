@@ -37,10 +37,6 @@
                             <pattern>com.cryptomorin.xseries</pattern>
                             <shadedPattern>me.bermine.sdm.util.xseries</shadedPattern>
                         </relocation>
-                        <relocation>
-                            <pattern>com.connorlinfoot.titleapi</pattern>
-                            <shadedPattern>me.bermine.sdm.util.titleapi</shadedPattern>
-                        </relocation>
                     </relocations>
                     <filters>
                         <filter>

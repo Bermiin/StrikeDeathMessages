@@ -1,6 +1,6 @@
 package me.bermine.sdm.util;
 
-import org.bukkit.Bukkit;
+import me.bermine.titleapi.util.VersionUtil;
 import org.bukkit.ChatColor;
 
 import java.util.List;
@@ -13,9 +13,7 @@ import java.util.stream.Collectors;
  */
 public class CC {
 
-    private static final String VERSION = Bukkit.getServer().getClass().getPackage().getName().substring(24);
-    private static final int INT_VER = Integer.parseInt(VERSION.split("_")[1]);
-    private static final boolean SUPPORTS_HEXCOLORS = INT_VER > 15;
+    private static final boolean SUPPORTS_HEXCOLORS = VersionUtil.isOrOver(15);
     private static final Pattern HEX_PATTERN = Pattern.compile("#[a-fA-F\\d]{6}");
 
     private CC() {

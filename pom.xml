@@ -115,11 +115,10 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/strikepractice-3.8.1.jar</systemPath>
         </dependency>
-        <!-- My fork of ConnorLinfoot's TitleAPI - https://github.com/bermiin/TitleAPI -->
         <dependency>
-            <groupId>com.connorlinfoot</groupId>
-            <artifactId>TitleAPI</artifactId>
-            <version>1.8.4</version>
+            <groupId>me.bermine.titleapi</groupId>
+            <artifactId>titleapi-bukkit</artifactId>
+            <version>1.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

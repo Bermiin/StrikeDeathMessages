@@ -1,12 +1,12 @@
 package me.bermine.sdm;
 
-import com.connorlinfoot.titleapi.TitleAPI;
 import lombok.Getter;
 import me.bermine.sdm.commands.MainCommand;
 import me.bermine.sdm.listeners.BotDuelListeners;
 import me.bermine.sdm.listeners.PlayerListeners;
 import me.bermine.sdm.listeners.StrikeListeners;
 import me.bermine.sdm.tasks.VoidTask;
+import me.bermine.titleapi.TitleAPI;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -30,9 +30,13 @@ public final class StrikeDeathMessages extends JavaPlugin {
         }
         instance = this;
         this.setupConfig();
-        new TitleAPI();
+
+        TitleAPI titleAPI = new TitleAPI(this);
+        titleAPI.init();
+
         VoidTask task = new VoidTask();
         task.runTaskTimer(this, 10L, 10L);
+
         this.registerCommands();
         this.registerListeners();
         getLogger().info("Plugin has been enabled");

@@ -1,6 +1,5 @@
 package me.bermine.sdm.listeners;
 
-import com.connorlinfoot.titleapi.TitleAPI;
 import com.cryptomorin.xseries.XSound;
 import ga.strikepractice.events.DuelEndEvent;
 import ga.strikepractice.events.DuelStartEvent;
@@ -8,6 +7,7 @@ import ga.strikepractice.fights.Fight;
 import lombok.RequiredArgsConstructor;
 import me.bermine.sdm.Config;
 import me.bermine.sdm.StrikeDeathMessages;
+import me.bermine.titleapi.TitleAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

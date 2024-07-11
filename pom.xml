@@ -37,6 +37,14 @@
                             <pattern>com.cryptomorin.xseries</pattern>
                             <shadedPattern>me.bermine.sdm.util.xseries</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>org.jetbrains</pattern>
+                            <shadedPattern>me.bermine.sdm.libs.org.jetbrains</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.intellij</pattern>
+                            <shadedPattern>me.bermine.sdm.libs.org.intellij</shadedPattern>
+                        </relocation>
                     </relocations>
                     <filters>
                         <filter>

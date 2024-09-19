@@ -6,7 +6,7 @@ death:
   enabled: true
   # Disables sending messages
   disable_message: false
-  message: "&a<winner> &7killed &c<looser>"
+  message: "&a<winner> &7killed &c<loser>"
   # If death was not caused by another player (e.g. player died in void)
   # Placeholders: <player>
   message_no_player: "&c<player> &7died."

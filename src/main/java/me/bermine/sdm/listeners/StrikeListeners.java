@@ -9,6 +9,7 @@ import me.bermine.sdm.Config;
 import me.bermine.sdm.StrikeDeathMessages;
 import me.bermine.titleapi.TitleAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -86,20 +87,21 @@ public class StrikeListeners implements Listener {
     @EventHandler
     public void onDuelStart(DuelStartEvent e) {
         if (!Config.START_ENABLED.asBoolean()) return;
-        if (Config.START_TITLE_ENABLED.asBoolean()) {
-            String title = Config.START_TITLE_TITLE.asString();
-            String subTitle = Config.START_TITLE_SUBTITLE.asString();
-            int fadeIn = Config.START_TITLE_FADEIN.asInt();
-            int stay = Config.START_TITLE_STAY.asInt();
-            int fadeOut = Config.START_TITLE_FADEOUT.asInt();
-            e.getFight().getPlayersInFight().forEach(p -> TitleAPI.sendTitle(p, title, subTitle, fadeIn, stay, fadeOut));
-        }
-        if (!Config.START_DISABLE_MESSAGE.asBoolean()) {
-            Bukkit.getScheduler().runTaskLater(plugin, () ->
-                Config.START_MESSAGE.asList().forEach(s -> {
-                    e.getPlayer1().sendMessage(s);
-                    e.getPlayer2().sendMessage(s);
-                }),101L);
-        }
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            if (Config.START_TITLE_ENABLED.asBoolean()) {
+                String title = Config.START_TITLE_TITLE.asString();
+                String subTitle = Config.START_TITLE_SUBTITLE.asString();
+                int fadeIn = Config.START_TITLE_FADEIN.asInt();
+                int stay = Config.START_TITLE_STAY.asInt();
+                int fadeOut = Config.START_TITLE_FADEOUT.asInt();
+                e.getFight().getPlayersInFight().forEach(p -> TitleAPI.sendTitle(p, title, subTitle, fadeIn, stay, fadeOut));
+            }
+
+            for (Player fightPlayer : e.getFight().getPlayersInFight()) {
+                for (String s : Config.START_MESSAGE.asList()) {
+                    fightPlayer.sendMessage(s);
+                }
+            }
+        }, 101L);
     }
 }

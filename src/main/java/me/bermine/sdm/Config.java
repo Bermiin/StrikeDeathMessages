@@ -13,6 +13,7 @@ public enum Config {
     NO_PERMISSIONS("no_perms", "&cNo permission."),
     DEATH_ENABLED("death.enabled", true),
     DEATH_DISABLE_MESSAGE("death.disable_message", false),
+    DEATH_VOID_CHECK_INTERVAL("death.void_check_interval", 10),
     DEATH_MESSAGE("death.message", "&a<winner> &7Killed &c<loser>"),
     DEATH_MESSAGE_NO_PLAYER("death.message_no_player", "&c<player> &7died."),
     DEATH_MESSAGE_WIN("death.message_win", "&a<player> &7won the game."),

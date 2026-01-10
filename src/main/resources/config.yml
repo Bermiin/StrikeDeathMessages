@@ -6,6 +6,10 @@ death:
   enabled: true
   # Disables sending messages
   disable_message: false
+  # How often we should check if player is in void
+  # If you are having issues with multiple messages in BestOf fights you can try changing this value
+  # Recommended adjustment is increasing the value by 1 or 2 ticks
+  void_check_interval: 10
   message: "&a<winner> &7killed &c<loser>"
   # If death was not caused by another player (e.g. player died in void)
   # Placeholders: <player>

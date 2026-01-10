@@ -34,8 +34,9 @@ public final class StrikeDeathMessages extends JavaPlugin {
         TitleAPI titleAPI = new TitleAPI(this);
         titleAPI.init();
 
+        long interval = Config.DEATH_VOID_CHECK_INTERVAL.asInt();
         VoidTask task = new VoidTask();
-        task.runTaskTimer(this, 10L, 10L);
+        task.runTaskTimer(this, interval, interval);
 
         this.registerCommands();
         this.registerListeners();

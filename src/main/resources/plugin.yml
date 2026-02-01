@@ -3,6 +3,7 @@ version: ${project.version}
 depend: [StrikePractice]
 main: me.bermine.sdm.StrikeDeathMessages
 author: Bermine
+api-version: 1.13
 commands:
   sdm:
     aliases: [strikedeathmessage, strikedeathmessages]
